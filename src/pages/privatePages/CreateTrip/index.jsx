@@ -1,50 +1,20 @@
-import React from "react";
-import {
-  Button,
-  Card,
-  Cascader,
-  Checkbox,
-  DatePicker,
-  Form,
-  Input,
-  InputNumber,
-  Mentions,
-  Select,
-  TimePicker,
-  TreeSelect,
-} from "antd";
-const { RangePicker } = DatePicker;
-const formItemLayout = {
-  labelCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 6,
-    },
-  },
-  wrapperCol: {
-    xs: {
-      span: 24,
-    },
-    sm: {
-      span: 14,
-    },
-  },
-};
+import React, { useState } from "react";
+import { Checkbox, DatePicker, Form, Input } from "antd";
+import PickupDetails from "./PickupDetails";
+import DropoffDetails from "./DropoffDetails";
+import HighwayDispatch from "./HighwayDispatch";
 
 const CreateTrip = () => {
+  const [detailTab, setDetailTab] = useState(1);
+
   return (
     <div className="flex flex-col gap-10 w-[100%] h-[90vh] p-[20px] overflow-auto">
       <h1 className=" text-3xl font-semibold tracking-wide">Create a trip</h1>
       <div className="w-[100%] flex flex-col gap-10">
-        {/* <div className="flex justify-between">
-          <p>Trip Details</p>
-          <p>Clear</p>
-        </div> */}
         <Form
           layout="vertical"
           className=" w-[100%] mx-auto flex flex-col gap-10"
+          onFinish={(values) => console.log(values)}
         >
           <div className="w-[100%] bg-orange-200 bg-opacity-20 flex flex-col gap-x-5">
             <div className=" text-xl font-semibold flex justify-between p-5">
@@ -53,16 +23,16 @@ const CreateTrip = () => {
             </div>
             <div className="w-[100%] grid grid-cols-3 gap-10 p-5">
               <Form.Item name="date" label="Date*">
-                <DatePicker className="w-full" />
+                <DatePicker size="large" className="w-full" />
               </Form.Item>
-              <Form.Item name="customerName" label="OrderNumber*">
+              <Form.Item name="orderNumber" label="OrderNumber*">
                 <Input
                   size="large"
                   placeholder="Enter order number"
                   className="w-full"
                 />
               </Form.Item>
-              <Form.Item name="customerName" label="Rate*">
+              <Form.Item name="rate" label="Rate*">
                 <Input
                   size="large"
                   placeholder="Enter rate"
@@ -75,16 +45,16 @@ const CreateTrip = () => {
             </div>
           </div>
 
-          <div className="w-[100%] flex flex-col gap-5">
+          <div className="w-[100%] flex flex-col">
             <div className=" text-xl font-semibold flex justify-between p-5">
               <p>Customer Details</p>
               <p>Clear</p>
             </div>
-            <div className="w-[100%] grid grid-cols-2 gap-10 px-5">
-              <Form.Item name="customerName" label="Name*">
+            <div className="w-[100%] grid grid-cols-3 gap-10 px-5">
+              <Form.Item name="name" label="Name*">
                 <Input size="large" placeholder="Enter name" />
               </Form.Item>
-              <Form.Item name="customerName" label="Phone No.*">
+              <Form.Item name="phoneNo" label="Phone No.*">
                 <Input
                   size="large"
                   placeholder="Enter phone number"
@@ -98,33 +68,29 @@ const CreateTrip = () => {
               </Form.Item>
             </div>
             <div className="w-[100%] grid grid-cols-3 gap-x-10 px-5">
-              <Form.Item name="customerName" label="Address*">
+              <Form.Item name="address" label="Address*">
                 <Input size="large" placeholder="Enter address" />
               </Form.Item>
-              <Form.Item name="customerName" label="Street 2*">
+              <Form.Item name="street" label="Street 2*">
                 <Input size="large" placeholder="Enter street 2" />
               </Form.Item>
-              <Form.Item name="customerName" label="State*">
+              <Form.Item name="state" label="State*">
                 <Input size="large" placeholder="Enter state" />
               </Form.Item>
             </div>
-            <div className="w-[100%] grid grid-cols-2 gap-10 px-5">
-              <Form.Item name="customerName" label="city*">
+            <div className="w-[100%] grid grid-cols-3 gap-10 px-5">
+              <Form.Item name="city" label="city*">
                 <Input size="large" placeholder="Enter city" />
               </Form.Item>
-              <Form.Item name="customerName" label="Postal Code*">
+              <Form.Item name="postalCode" label="Postal Code*">
                 <Input size="large" placeholder="Enter postal code" />
               </Form.Item>
             </div>
           </div>
+          {detailTab === 1 && <PickupDetails setDetailTab={setDetailTab} />}
+          {detailTab === 2 && <DropoffDetails setDetailTab={setDetailTab} />}
+          {detailTab === 3 && <HighwayDispatch setDetailTab={setDetailTab} />}
         </Form>
-      </div>
-
-      <div>
-        <div className="flex justify-between">
-          <p>Customer Details</p>
-          <p>Clear</p>
-        </div>
       </div>
     </div>
   );

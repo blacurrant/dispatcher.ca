@@ -1,7 +1,11 @@
-import React from "react";
+import React, {useState } from "react";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+
+  const [activeTab, setActiveTab] = useState(null);
+
+
   const sidebarOptions = [
     {
       name: "Dashboard",
@@ -20,7 +24,7 @@ const Sidebar = () => {
       <div>
         {sidebarOptions.map((option, index) => {
           return (
-            <Link  to={option.path} className="h-[10vh] text-cyan-200 hover:bg-cyan-900 px-5 flex justify-start items-center " key={index}>
+            <Link  to={option.path} onClick={() => setActiveTab(index)} className={`h-[10vh] text-cyan-200 hover:bg-cyan-900 px-5 flex justify-start items-center ${activeTab === index && "bg-cyan-900"}`} key={index}>
               <p>{option.name}</p>
             </Link>
           );
