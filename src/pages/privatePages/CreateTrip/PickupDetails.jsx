@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Button, DatePicker, Form, Input, TimePicker } from "antd";
+import { useDispatch } from "react-redux";
+import { setPickupSlice } from "../../../store/slices/pickupSlice";
 
 const PickupDetails = ({ setDetailTab }) => {
   const [advanceSettings, setAdvanceSettings] = useState(false);
+
+  const dispatch = useDispatch();
 
   return (
     <div className="w-[100%] flex flex-col border border-gray-400">
@@ -100,7 +104,7 @@ const PickupDetails = ({ setDetailTab }) => {
           <button onClick={() => setDetailTab(2)}>2</button>
           <button onClick={() => setDetailTab(3)}>3</button>
         </div>
-        <Button type="primary" onClick={() => setDetailTab(2)}>
+        <Button type="primary" onClick={() => {setDetailTab(2); dispatch(setPickupSlice({pickup: form.getFieldsValue()}))}}>
           Next
         </Button>
       </div>
