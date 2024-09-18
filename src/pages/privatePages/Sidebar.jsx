@@ -42,7 +42,7 @@ const Sidebar = () => {
   const sidebarOptions = [
     {
       name: "Home",
-      path: "/home",
+      path: "/",
       icon: homeIcon,
     },
     {
@@ -90,16 +90,22 @@ const Sidebar = () => {
                 preview={false}
               />
               {!toggle?.sidebar && <p>{option?.name}</p>}
-              {option?.comingSoon && <p className="text-[10px] bg-primary text-white px-2
+              {option?.comingSoon && (
+                <p
+                  className="text-[10px] bg-primary text-white px-2
 
-              ">Coming Soon</p>}
+              "
+                >
+                  Coming Soon
+                </p>
+              )}
             </Link>
           );
         })}{" "}
       </div>
       <div className="rounded-lg p-1 flex flex-col gap-1">
         <div
-        onClick={() => setLogoutModal(true)}
+          onClick={() => setLogoutModal(true)}
           className={` px-5 py-5 flex gap-2 justify-start items-center hover:shadow-lg rounded-lg cursor-pointer`}
         >
           <Image
@@ -115,13 +121,11 @@ const Sidebar = () => {
           {/* <p onClick={handleSignOut} className="font-semibold cursor-pointer">--</p> */}
         </div>
       </div>
-      {
-        logoutModal && <Modal
-        visible={logoutModal}
-        onOk={() => handleSignOut()}>
+      {logoutModal && (
+        <Modal visible={logoutModal} onCancel={() => setLogoutModal(false)} onOk={() => handleSignOut()}>
           <p>Are you sure you want to log out?</p>
         </Modal>
-      }
+      )}
     </div>
   );
 };
