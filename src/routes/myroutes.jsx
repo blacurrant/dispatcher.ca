@@ -11,10 +11,10 @@ import UserProfileForm from "../pages/privatePages/Onboarding/boardTwo";
 const MyRoutes = () => {
   return (
     <Routes>
-      <Route path="/login" element={<LoginForm  />} />
+      <Route index path="/login" element={<LoginForm  />} />
       <Route path="/" element={<Layout />}>
         {/* <Route path="/trips" element={<CreateTrip />} /> */}
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/boarding" element={<UserProfileForm />} />
         <Route path="/campaign" element={<Campaign />} />
