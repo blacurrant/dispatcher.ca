@@ -16,3 +16,6 @@
 .ant-input-group-wrapper-outlined {
   border-radius: 0px;
 }
+
+.ant-select-selector {
+  border-radius: 1rem !important; }

@@ -7,7 +7,7 @@ const { Title, Paragraph } = Typography;
 
 export default function StartBoarding({setFormTab}) {
   return (
-    <div className="h-screen w-full bg-gray-100 flex flex-col gap-6 items-center justify-center p-4">
+    <div className="h-screen w-full flex flex-col gap-6 items-center justify-center p-4">
       <Title level={2} className="text-center font-bold">
         Welcome to MelloUp
       </Title>

@@ -6,13 +6,12 @@ import loginIllus from "../../assets/login.png";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from "../../firebase/firebase";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUserSlice } from "../../store/slices/currentUserSlice";
-import DrawerComponent from "../privatePages/Onboarding";
+import { openNotification } from "../../components/notifications";
 
 export default function LoginForm() {
 
-  const [formDrawer, setFormDrawer] = useState(false);
 
   const onFinish = (values) => {
     console.log("Success:", values);
@@ -21,28 +20,28 @@ export default function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const onboardingCompleted = useSelector((state) => state?.currentUserSlice);
+  console.log(onboardingCompleted, "Asda");
+  
+
+
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
       const user = result.user; // The signed-in user info
       console.log("User Info:", user);
       dispatch(setCurrentUserSlice(user));
-      setFormDrawer(true);
-      navigate("/home");
+      navigate("/");
+      openNotification("Success", "Logged in successfully", "success");
     } catch (error) {
       console.error("Error during Google sign-in:", error.message);
     }
   };
 
-  const handleClose = () => {
-    setFormDrawer(false);
-  };
 
   return (
     <div className="h-screen flex items-center justify-center bg-gray-50 p-2">
-      {
-        formDrawer && <DrawerComponent handleClose={handleClose} open={formDrawer} />
-      }
+
       <div className="w-full h-full flex flex-col justify-between bg-primary bg-opacity-80 rounded-3xl p-[56px]">
         {/* <img src="/logo.png" alt="logo" className="w-full" /> */}
         <div className="text-white text-[48px]  font-semibold w-[90%] h-fit">
@@ -121,15 +120,15 @@ export default function LoginForm() {
                   htmlType="submit"
                   block
                   className="bg-primary !hover:bg-secondary"
-                  onClick={() => setFormDrawer(true)}
+                  disabled
                 >
                   Login
                 </Button>
               </Form.Item>
             </Form>
             <p className="text-center text-sm text-gray-600">
-              Don't have an account?{" "}
-              <a onClick={() => setFormDrawer(true)} className="font-medium text-primary hover:underline">
+              Don&apos;t have an account?{" "}
+              <a className="font-medium text-primary hover:underline">
                 Signup for free
               </a>
             </p>

@@ -13,7 +13,6 @@ import { setCurrentUserSlice } from "../../store/slices/currentUserSlice";
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0);
-  const [logoutModal, setLogoutModal] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,18 +24,6 @@ const Sidebar = () => {
 
   const handleSidebar = () => {
     dispatch(setSidebarToggle());
-  };
-
-  const handleSignOut = async () => {
-    try {
-      await signOut(auth);
-      setLogoutModal(false);
-      navigate("/login");
-      dispatch(setCurrentUserSlice(null));
-      console.log("User signed out");
-    } catch (error) {
-      console.error("Error signing out:", error);
-    }
   };
 
   const sidebarOptions = [
@@ -64,14 +51,15 @@ const Sidebar = () => {
         toggle?.sidebar && "w-[5%]"
       }`}
     >
-      <div className="rounded-lg flex flex-col ">
-        <div
-          onClick={handleSidebar}
-          className={`flex justify-end items-center p-2 ${
-            toggle?.sidebar && "rotate-180 justify-center"
-          }`}
-        >
-          <ToggleIconImg />
+      <div className="relative rounded-lg flex flex-col ">
+        <div onClick={handleSidebar} className={`p-7 `}>
+          <div
+            className={`w-fit h-fit absolute right-2 top-4 ${
+              toggle?.sidebar && "rotate-180"
+            } `}
+          >
+            <ToggleIconImg />
+          </div>
         </div>
         {sidebarOptions.map((option, index) => {
           return (
@@ -103,7 +91,7 @@ const Sidebar = () => {
           );
         })}{" "}
       </div>
-      <div className="rounded-lg p-1 flex flex-col gap-1">
+      {/* <div className="rounded-lg p-1 flex flex-col gap-1">
         <div
           onClick={() => setLogoutModal(true)}
           className={` px-5 py-5 flex gap-2 justify-start items-center hover:shadow-lg rounded-lg cursor-pointer`}
@@ -118,14 +106,8 @@ const Sidebar = () => {
           {!toggle?.sidebar && (
             <p className="text-black">{userInfo?.displayName}</p>
           )}
-          {/* <p onClick={handleSignOut} className="font-semibold cursor-pointer">--</p> */}
         </div>
-      </div>
-      {logoutModal && (
-        <Modal visible={logoutModal} onCancel={() => setLogoutModal(false)} onOk={() => handleSignOut()}>
-          <p>Are you sure you want to log out?</p>
-        </Modal>
-      )}
+      </div> */}
     </div>
   );
 };
