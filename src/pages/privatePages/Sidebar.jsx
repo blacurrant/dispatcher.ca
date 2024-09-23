@@ -38,6 +38,11 @@ const Sidebar = () => {
       icon: analytics,
     },
     {
+      name: "My Events",
+      path: "/events",
+      icon: analytics,
+    },
+    {
       name: "Campaign",
       path: "/campaign",
       icon: "+",

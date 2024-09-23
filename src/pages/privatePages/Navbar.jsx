@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center drop-shadow-md w-[100%] p-4 bg-white ">
+    <div className="flex justify-between items-center drop-shadow-md w-[100%] max-h-[10vh] p-4 bg-white ">
       <Image
         src={LogoIcon}
         alt="logo"

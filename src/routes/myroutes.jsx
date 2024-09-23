@@ -1,5 +1,5 @@
-import React, { Children } from "react";
-import { Router, Routes, Route } from "react-router-dom";
+import React from "react";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Layout from "../layout/layout";
 import Analytics from "../pages/privatePages/Analytics";
 import Home from "../pages/privatePages/Dashboard";
@@ -8,20 +8,25 @@ import StartBoarding from "../pages/privatePages/Onboarding/startBoard";
 import Campaign from "../pages/privatePages/Campaign";
 import UserProfileForm from "../pages/privatePages/Onboarding/boardTwo";
 import { useSelector } from "react-redux";
+import MyEvents from "../pages/privatePages/MyEvents";
 
 const MyRoutes = () => {
   const user = useSelector((state) => state?.currentUserSlice?.userInfo);
 
+  // Route protection for private routes
   const ProtectedRoutes = ({ children }) => {
     if (!user) {
-      return <LoginForm />;
+      return <Navigate to="/login" replace />;
     }
     return children;
   };
 
   return (
     <Routes>
-      <Route index path="/login" element={<LoginForm />} />
+      {/* Public route */}
+      <Route path="/login" element={<LoginForm />} />
+
+      {/* Protected routes */}
       <Route
         path="/"
         element={
@@ -30,12 +35,15 @@ const MyRoutes = () => {
           // </ProtectedRoutes>
         }
       >
-        {/* <Route path="/trips" element={<CreateTrip />} /> */}
         <Route path="/" element={<Home />} />
         <Route path="/analytics" element={<Analytics />} />
         <Route path="/boarding" element={<UserProfileForm />} />
         <Route path="/campaign" element={<Campaign />} />
+        <Route path="/events" element={<MyEvents />} />
       </Route>
+
+      {/* Redirect to login if no matching route */}
+      <Route path="*" element={<Navigate to="/login" replace />} />
     </Routes>
   );
 };
