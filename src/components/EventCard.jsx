@@ -72,6 +72,8 @@ export default function EventCard() {
                     type="circle"
                     percent={event.propScore}
                     width={50}
+                    strokeColor={"#723D9E"}
+
                   />
                   <span className="text-xs mt-1">Prop Score</span>
                 </div>

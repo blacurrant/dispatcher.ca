@@ -6,6 +6,9 @@ import {
   TagOutlined,
   RightOutlined,
 } from "@ant-design/icons";
+import devsparks from "../assets/event/devsparks.png";
+import eth from "../assets/event/eth.png";
+import NasSummit from "../assets/event/NasSummit.jpg";
 
 const { Title, Text } = Typography;
 
@@ -21,7 +24,7 @@ const events = [
       "DevCon brings together developers from around the world to explore the latest in software development.",
     attendees: "50,000+ Attendees",
     type: "Developer Conference",
-    image: "/placeholder.svg?height=200&width=400",
+    image: devsparks,
     propScore: 85,
   },
   {
@@ -35,7 +38,7 @@ const events = [
       "Web Summit will bring together 70,000+ people, and the companies redefining the tech industry.",
     attendees: "70,000+ Attendees",
     type: "Tech Conference",
-    image: "/placeholder.svg?height=200&width=400",
+    image: eth,
     propScore: 92,
   },
   {
@@ -49,7 +52,7 @@ const events = [
       "SaasCon is the premier event for SaaS founders, executives, and investors.",
     attendees: "30,000+ Attendees",
     type: "SaaS Conference",
-    image: "/placeholder.svg?height=200&width=400",
+    image: NasSummit,
     propScore: 78,
   },
 ];
@@ -114,15 +117,18 @@ export default function SponsoredEvents() {
           </div>
         </div>
         <Card
-          className="w-3/5 h-full border border-primary shadow-md"
+          className="relative w-3/5 h-full shadow-sm shadow-primary"
           cover={
             <img
               alt={activeEvent.name}
               src={activeEvent.image}
-              className="h-40 object-cover"
+              className="h-48 object-cover "
             />
           }
         >
+          {/* <div
+            className="absolute top-[20vh] left-0 bg-gradient-to-b from-transparent  to-white h-[5vh] z-10 w-full "
+          ></div> */}
           <div className="flex justify-between">
             <div className="flex flex-col">
               <Title level={4}>{activeEvent.name}</Title>
@@ -138,15 +144,15 @@ export default function SponsoredEvents() {
                 percent={activeEvent.propScore}
                 width={40}
                 strokeColor={{
-                  "0%": "#108ee9",
-                  "100%": "#87d068",
+                  "0%": "#ECE6F0",
+                  "100%": "#723D9E",
                 }}
               />
             </div>
           </div>
           {/* <Divider /> */}
           <Text className="mb-4">{activeEvent.description}</Text>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-center ">
             <div className="flex items-center">
               <TeamOutlined className="mr-1 text-primary" />
               <Text className="text-primary">{activeEvent.attendees}</Text>
@@ -155,11 +161,11 @@ export default function SponsoredEvents() {
               <TagOutlined className="mr-1 text-primary" />
               <Text className="text-primary">{activeEvent.type}</Text>
             </div>
-          </div>
-          <div className="mt-4 text-right">
-            <Text className="text-primary cursor-pointer">
-              View Details <RightOutlined />
-            </Text>
+            <div className=" text-right">
+              <Text className="text-primary cursor-pointer">
+                View Details <RightOutlined />
+              </Text>
+            </div>
           </div>
         </Card>
       </div>

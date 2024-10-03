@@ -70,7 +70,7 @@ export default function LoginForm() {
               icon={<GoogleOutlined />}
               block
               size="large"
-              className="mb-4 bg-secondary hover:bg-secondary text-black "
+              className="mb-4 bg-primary  text-white hover:!bg-hover hover:!border-primary hover:!text-primary"
               onClick={handleGoogleSignIn}
             >
               Sign in with Google
