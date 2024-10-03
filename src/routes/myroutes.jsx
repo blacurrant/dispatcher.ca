@@ -9,6 +9,9 @@ import Campaign from "../pages/privatePages/Campaign";
 import UserProfileForm from "../pages/privatePages/Onboarding/boardTwo";
 import { useSelector } from "react-redux";
 import MyEvents from "../pages/privatePages/MyEvents";
+import AddEvent from "../pages/privatePages/AddNewEvent";
+import EventPage from "../pages/privatePages/MyEvents/EventDescription";
+import AttendeeList from "../pages/privatePages/Analytics/DetailedAnalytics";
 
 const MyRoutes = () => {
   const user = useSelector((state) => state?.currentUserSlice?.userInfo);
@@ -40,6 +43,9 @@ const MyRoutes = () => {
         <Route path="/boarding" element={<UserProfileForm />} />
         <Route path="/campaign" element={<Campaign />} />
         <Route path="/events" element={<MyEvents />} />
+        <Route path="/addEvent" element={<AddEvent />} />
+        <Route path="/events/:event" element={<EventPage />} />
+        <Route path="/attendees" element={<AttendeeList />} />
       </Route>
 
       {/* Redirect to login if no matching route */}

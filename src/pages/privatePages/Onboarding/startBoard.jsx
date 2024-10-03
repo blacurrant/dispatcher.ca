@@ -32,7 +32,7 @@ export default function StartBoarding({setFormTab}) {
       <Button
         type="primary"
         size="large"
-        className="w-[600px] h-[60px] bg-primary !hover:bg-primary rounded-2xl "
+        className="w-[600px] h-[60px] bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl "
         icon={<ArrowRightOutlined />}
         onClick={() => setFormTab(2)}
       >

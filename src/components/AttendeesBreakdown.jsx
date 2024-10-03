@@ -10,6 +10,7 @@ import {
   Legend
 } from 'chart.js';
 import { Pie, Doughnut, Bar } from 'react-chartjs-2';
+import { useNavigate } from 'react-router-dom';
 
 ChartJS.register(
   ArcElement,
@@ -21,7 +22,7 @@ ChartJS.register(
   Legend
 );
 
-const purpleColors = ['#723D9E', '#a78bfa', '#c4b5fd', '#ddd6fe', '#ede9fe'];
+const purpleColors = ['#723D9E', '#A16FCC', '#EDD4FC', '#EDE6F1', '#ede9fe'];
 
 const pieOptions = {
   responsive: true,
@@ -45,11 +46,20 @@ const barOptions = {
     x: {
       type: 'category',
       stacked: true,
+      grid: {
+        display: false, // Removes vertical grid lines
+      },
     },
     y: {
       type: 'linear',
       stacked: true,
       beginAtZero: true,
+      grid: {
+        display: false, // Removes vertical grid lines
+      },
+      ticks: {
+        display: false, // Hides the Y-axis labels
+      },
     },
   },
 };
@@ -67,27 +77,40 @@ const horizontalBarOptions = {
     x: {
       type: 'linear',
       beginAtZero: true,
+      grid: {
+        display: false, // Removes vertical grid lines
+      },
+      ticks: {
+        display: false, // Hides the Y-axis labels
+      },
     },
     y: {
       type: 'category',
       beginAtZero: true,
+      grid: {
+        display: false, // Removes vertical grid lines
+      },
+
     },
   },
 };
 
 export default function AttendeeDashboard() {
+
+  const navigate = useNavigate();
+
   const jobRolesData = {
-    labels: ['C-Level Executives', 'Manager/Directors', 'VP/SVP','xyz' ,'Other Roles'],
+    labels: ['C-Level Executives', 'Manager/Directors', 'VP/SVP' ,'Other Roles'],
     datasets: [{
-      data: [30, 20, 25, 15, 10],
+      data: [30, 30, 25, 15],
       backgroundColor: purpleColors,
     }],
   };
 
   const companySizeData = {
-    labels: ['1-10 (start-up)', '11-50 (small)', '51-200 (mid-size)', '201-500 (large)', '500+'],
+    labels: ['1-10 (start-up)', '11-50 (small)', '51-200 (mid-size)', '200+ (large)'],
     datasets: [{
-      data: [15, 25, 30, 20, 10],
+      data: [15, 25, 30, 30],
       backgroundColor: purpleColors,
     }],
   };
@@ -109,7 +132,7 @@ export default function AttendeeDashboard() {
   };
 
   const domainData = {
-    labels: ['Web & Mobile', 'AI & Machine Learning', 'Fintech', 'Healthcare', 'Others'],
+    labels: ['Healthcare', 'Finance', 'Marketing', 'Development', 'Others'],
     datasets: [{
       data: [40, 30, 20, 15, 10],
       backgroundColor: purpleColors,
@@ -117,27 +140,27 @@ export default function AttendeeDashboard() {
   };
 
   return (
-    <div className="w-full mx-auto h-full p-6 bg-white rounded-lg shadow-lg">
-      <h1 className="text-2xl font-bold mb-4">Web Summit Attendee Breakdown</h1>
-      <p className="mb-6">
+    <div className="w-full mx-auto h-fit p-6 bg-purple-50 rounded-lg flex flex-col gap-4">
+      <h1 className="text-3xl font-light">Web Summit Attendee Breakdown</h1>
+      <p onClick={() => navigate("/attendees")} className="bg-white p-6 border border-primary border-opacity-30 rounded-3xl cursor-pointer shadow-md">
         <span className="font-semibold text-primary text-xl">2,000</span> # of Attendees Expected that match your goal and target audience
       </p>
       <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-        <div className="h-64 border border-primary border-opacity-25 rounded-3xl px-4 pb-8">
+        <div className="h-[300px] border border-primary bg-white shadow-md  border-opacity-30 border-opacity-25 rounded-3xl px-4 pb-8">
           <h2 className="text-lg font-semibold mb-2">Job Roles</h2>
           <Pie data={jobRolesData} options={pieOptions} />
         </div>
-        <div className="h-64 border border-primary border-opacity-25 rounded-3xl px-4 pb-8">
+        <div className="h-[300px] border border-primary bg-white shadow-md  border-opacity-30 border-opacity-25 rounded-3xl px-4 pb-8">
           <h2 className="text-lg font-semibold mb-2">Company Size</h2>
           <Doughnut data={companySizeData} options={pieOptions} />
         </div>
-        <div className="h-[250px] border border-primary border-opacity-25 rounded-3xl px-4 pb-8">
+        <div className="h-[300px] border border-primary bg-white shadow-md  border-opacity-30 border-opacity-25 rounded-3xl px-4 pb-8">
           <h2 className="text-lg font-semibold mb-2">Funding Stage</h2>
           <Bar data={fundingStageData} options={barOptions} />
         </div>
-        <div className="h-[250px] border border-primary border-opacity-25 rounded-3xl px-4 pb-8">
+        <div className="h-[300px] w-full border border-primary bg-white shadow-md  border-opacity-30 border-opacity-25 rounded-3xl px-4 pb-8">
           <h2 className="text-lg font-semibold mb-2">Domain</h2>
-          <Bar data={domainData} options={horizontalBarOptions} />
+          <Bar className='relative' data={domainData} options={horizontalBarOptions} />
         </div>
       </div>
     </div>

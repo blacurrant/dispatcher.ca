@@ -46,8 +46,8 @@ export default function InviteTeamForm({
       <Progress
         percent={100}
         showInfo={false}
-        strokeColor="#8B5CF6"
-        trailColor="#E5E7EB"
+        strokeColor="#723D9E"
+        trailColor="#ECE6F0"
       />
       <div className="py-8 space-y-2">
         <h1 className="text-xl font-bold ">
@@ -116,7 +116,7 @@ export default function InviteTeamForm({
                   type="dashed"
                   onClick={() => add()}
                   icon={<PlusOutlined />}
-                  className="h-[48px] !rounded-2xl w-full text-purple-600 border-purple-600 hover:border-purple-700 hover:text-purple-700"
+                  className="h-[48px] !rounded-2xl w-full hover:!bg-hover hover:!text-primary hover:!border-primary border hover:text-purple-700"
                 >
                   Invite more people
                 </Button>
@@ -131,7 +131,7 @@ export default function InviteTeamForm({
             <Button
               type="primary"
               onClick={() => setFormTab(4)}
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back
@@ -141,7 +141,7 @@ export default function InviteTeamForm({
               loading={loading}
               type="primary"
               htmlType="submit"
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               Submit <ArrowRightOutlined />
             </Button>

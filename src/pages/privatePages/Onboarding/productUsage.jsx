@@ -42,8 +42,8 @@ export default function ProductUsageForm({ setFormTab }) {
       <Progress
         percent={75}
         showInfo={false}
-        strokeColor="#8B5CF6"
-        trailColor="#E5E7EB"
+        strokeColor="#723D9E"
+        trailColor="#ECE6F0"
       />
 
       <div className="py-6">
@@ -64,9 +64,9 @@ export default function ProductUsageForm({ setFormTab }) {
             {businessOptions.map((option) => (
               <Button
                 key={option.label}
-                className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl ${
+                className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
                   selectedBusiness === option.label
-                    ? "!bg-primary text-white border-primary"
+                    ? "!bg-primary text-white border-primary "
                     : "bg-white text-gray-500 border-gray-300 hover:border-primary"
                 }`}
                 onClick={() => setSelectedBusiness(option.label)}
@@ -95,9 +95,9 @@ export default function ProductUsageForm({ setFormTab }) {
                 <Button
                   type={hasSponsored === true ? "primary" : "default"}
                   onClick={() => setHasSponsored(true)}
-                  className={`w-full h-[48px] rounded-2xl ${
+                  className={`w-full h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
                     hasSponsored === true
-                      ? "bg-primary border-primary hover:bg-purple-700 hover:border-purple-700"
+                      ? "bg-primary "
                       : ""
                   }`}
                 >
@@ -106,9 +106,9 @@ export default function ProductUsageForm({ setFormTab }) {
                 <Button
                   type={hasSponsored === false ? "primary" : "default"}
                   onClick={() => setHasSponsored(false)}
-                  className={`w-full h-[48px] rounded-2xl ${
+                  className={`w-full h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
                     hasSponsored === false
-                      ? "bg-primary border-primary hover:bg-purple-700 hover:border-purple-700"
+                      ? "bg-primary "
                       : ""
                   }`}
                 >
@@ -124,7 +124,7 @@ export default function ProductUsageForm({ setFormTab }) {
             </h2>
             <div className="w-full">
               <label htmlFor="upload-input">
-                <div className="w-full h-12 rounded-2xl bg-white border border-gray-300 flex items-center justify-center cursor-pointer hover:border-primary">
+                <div className="w-full h-12 rounded-2xl bg-white border border-gray-300 flex items-center justify-center cursor-pointer hover:!bg-hover hover:!border-primary border">
                   <span className="mr-2"><UploadOutlined /></span> {/* Icon Placeholder */}
                   Upload
                 </div>
@@ -143,7 +143,7 @@ export default function ProductUsageForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(3)}
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back
@@ -152,7 +152,7 @@ export default function ProductUsageForm({ setFormTab }) {
             <Button
               type="primary"
               htmlType="submit"
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               Continue <ArrowRightOutlined />
             </Button>

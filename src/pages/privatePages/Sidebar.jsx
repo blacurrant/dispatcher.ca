@@ -1,15 +1,11 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import userIcon from "../../assets/user-circle.png";
 import homeIcon from "../../assets/Home.png";
 import analytics from "../../assets/Tuning.png";
-import { Image, Modal } from "antd";
+import { Image } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setSidebarToggle } from "../../store/slices/sidebarToggle";
-import { ToggleIconImg } from "../../utils/images";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebase";
-import { setCurrentUserSlice } from "../../store/slices/currentUserSlice";
+import { AnalyticsIcon, EventLogo, HomeIcon, ToggleIconImg } from "../../utils/images";
 
 const Sidebar = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -30,17 +26,17 @@ const Sidebar = () => {
     {
       name: "Home",
       path: "/",
-      icon: homeIcon,
+      icon: <HomeIcon />,
     },
     {
       name: "Analytics",
       path: "/analytics",
-      icon: analytics,
+      icon: <AnalyticsIcon />,
     },
     {
       name: "My Events",
       path: "/events",
-      icon: analytics,
+      icon: <EventLogo />,
     },
     {
       name: "Campaign",
@@ -52,15 +48,15 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`w-[20%] h-full flex flex-col justify-between border-r border-gray-200 shadow-lg bg-white ${
-        toggle?.sidebar && "w-[5%]"
+      className={`w-[20%] h-full flex flex-col justify-between border-r border-gray-200 shadow-lg bg-white transition-all duration-300 ease-in-out ${
+        toggle?.sidebar ? "w-[5%]" : "w-[20%]"
       }`}
     >
       <div className="relative rounded-lg flex flex-col ">
         <div onClick={handleSidebar} className={`p-7 `}>
           <div
-            className={`w-fit h-fit absolute right-2 top-4 ${
-              toggle?.sidebar && "rotate-180"
+            className={`w-fit h-fit absolute right-2 top-4 transition-transform duration-300 ease-in-out ${
+              toggle?.sidebar ? "rotate-180" : "rotate-0"
             } `}
           >
             <ToggleIconImg />
@@ -71,48 +67,32 @@ const Sidebar = () => {
             <Link
               to={option.path}
               onClick={() => setActiveTab(index)}
-              className={` hover:bg-blue-100 hover:border-blue-100 p-5 flex justify-start items-center border-r-4 border-white gap-2 ${
-                activeTab === index && " bg-blue-100 !border-primary"
+              className={`hover:bg-blue-100 hover:border-blue-100 p-5 flex justify-start items-center border-r-4 border-white gap-2 transition-all duration-300 ease-in-out ${
+                activeTab === index ? "bg-blue-100 !border-primary" : ""
               }`}
               key={index}
             >
-              <Image
-                className=" !w-[24px] !h-[24px] object-contain"
-                src={option?.icon}
-                alt="icon"
-                preview={false}
-              />
-              {!toggle?.sidebar && <p>{option?.name}</p>}
+              {option?.icon}
+              <p
+                className={`transition-opacity duration-300 ease-in-out ${
+                  toggle?.sidebar ? "opacity-0 w-0" : "opacity-100 w-auto"
+                }`}
+              >
+                {option?.name}
+              </p>
               {option?.comingSoon && (
                 <p
-                  className="text-[10px] bg-primary text-white px-2
-
-              "
+                  className={`text-[10px] bg-primary text-white px-2 transition-all duration-300 ease-in-out ${
+                    toggle?.sidebar ? "opacity-0 w-0" : "opacity-100 w-auto"
+                  }`}
                 >
                   Coming Soon
                 </p>
               )}
             </Link>
           );
-        })}{" "}
+        })}
       </div>
-      {/* <div className="rounded-lg p-1 flex flex-col gap-1">
-        <div
-          onClick={() => setLogoutModal(true)}
-          className={` px-5 py-5 flex gap-2 justify-start items-center hover:shadow-lg rounded-lg cursor-pointer`}
-        >
-          <Image
-            width={30}
-            height={30}
-            className="rounded-full"
-            src={userInfo?.photoURL && userInfo?.photoURL}
-            alt="u"
-          />
-          {!toggle?.sidebar && (
-            <p className="text-black">{userInfo?.displayName}</p>
-          )}
-        </div>
-      </div> */}
     </div>
   );
 };

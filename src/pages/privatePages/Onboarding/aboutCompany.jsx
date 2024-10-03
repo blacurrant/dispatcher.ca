@@ -69,8 +69,8 @@ export default function CompanyInfoForm({ setFormTab }) {
       <Progress
         percent={50}
         showInfo={false}
-        strokeColor="#8B5CF6"
-        trailColor="#E5E7EB"
+        strokeColor="#723D9E"
+        trailColor="#ECE6F0"
       />
 
 <div className="py-8">
@@ -134,9 +134,9 @@ export default function CompanyInfoForm({ setFormTab }) {
             {companyType.map((role) => (
               <Button
                 key={role}
-                className={`text-left px-3 py-2 h-[48px] rounded-2xl ${
+                className={`text-left px-3 py-2 h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary ${
                   selectedCompanyType == role
-                    ? "!bg-primary !text-white !border-primary"
+                    ? "!bg-primary !text-white !"
                     : "bg-white text-gray-700 border-gray-300"
                 }`}
                 onClick={() => setSelectedCompanyType(role)}
@@ -153,7 +153,7 @@ export default function CompanyInfoForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(2)}
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border border-primary rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back
@@ -162,7 +162,7 @@ export default function CompanyInfoForm({ setFormTab }) {
             <Button
               type="primary"
               htmlType="submit"
-              className="w-full bg-primary hover:bg-purple-700 border-primary hover:border-purple-700 rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary  border-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               Continue <ArrowRightOutlined />
             </Button>

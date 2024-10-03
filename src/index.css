@@ -19,3 +19,12 @@
 
 .ant-select-selector {
   border-radius: 1rem !important; }
+
+
+.ant-breadcrumb-link{
+  color: white !important ;
+}
+
+.ant-breadcrumb-separator{
+  color: white !important;
+}

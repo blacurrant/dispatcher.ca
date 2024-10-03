@@ -61,17 +61,15 @@ export default function SponsoredEvents() {
     <div className="w-full h-full mx-auto px-6">
       <div className="h-full flex gap-6">
         <div className="h-full w-2/5 flex flex-col items-start">
-          <Title level={2} className="mb-6">
-            Sponsored Events
-          </Title>
+          <p className="mb-6 text-3xl font-light">Sponsored Events</p>
           <div className="w-full space-y-4">
             {events.map((event) => (
               <div
                 onClick={() => setActiveEvent(event)}
                 key={event.id}
-                className={`relative w-full rounded-l-lg ${
+                className={`relative w-full rounded-l-lg cursor-pointer ${
                   activeEvent.id === event.id
-                    ? "bg-secondary relative"
+                    ? "bg-secondary relative shadow-md"
                     : "hover:bg-gray-100"
                 }`}
               >
@@ -116,7 +114,7 @@ export default function SponsoredEvents() {
           </div>
         </div>
         <Card
-          className="w-3/5 h-full border border-primary"
+          className="w-3/5 h-full border border-primary shadow-md"
           cover={
             <img
               alt={activeEvent.name}
@@ -126,9 +124,7 @@ export default function SponsoredEvents() {
           }
         >
           <div className="flex justify-between">
-            <div
-              className="flex flex-col"
-            >
+            <div className="flex flex-col">
               <Title level={4}>{activeEvent.name}</Title>
               <div className="flex items-center text-gray-500 mb-2">
                 <EnvironmentOutlined className="mr-1" />

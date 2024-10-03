@@ -6,6 +6,7 @@ import {
   CalendarOutlined,
   TeamOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const events = [
   {
@@ -28,10 +29,13 @@ const events = [
 ];
 
 export default function EventCard() {
+
+  const navigate = useNavigate();
+
   return (
     <div className="w-full h-full mx-auto bg-white overflow-hidden">
       <div className="p-6 space-y-6">
-        <h2 className="text-2xl font-normal font-lora text-gray-800">
+        <h2 className="text-3xl font-light text-primary border-b border-primary">
           Prepare for Events
         </h2>
 
@@ -81,17 +85,18 @@ export default function EventCard() {
           size="large"
           type="primary"
           icon={<PlusOutlined />}
-          className="w-full bg-primary hover:bg-purple-700 border-none rounded-2xl"
+          className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl"
+          onClick={() => navigate('/addEvent')}
         >
           Add New Event
         </Button>
 
-        <div className="space-y-2 flex flex-col items-center justify-center border border-primary border-opacity-25 rounded-3xl p-4">
+        <div className="shadow-md space-y-2 flex flex-col items-center justify-center border border-primary border-opacity-25 rounded-3xl p-4">
           <p className="text-sm text-gray-600"># Events Sponsored in 2024</p>
-          <p className="text-3xl font-bold text-gray-800">4</p>
+          <p className="text-3xl font-bold text-primary">4</p>
         </div>
 
-        <div className="space-y-2 flex flex-col items-center justify-center border border-primary border-opacity-25 rounded-3xl p-4">
+        <div className="shadow-md space-y-2 flex flex-col items-center justify-center border border-primary border-opacity-25 rounded-3xl p-4">
           <p className="text-sm text-gray-600">
             $$ Spent on Sponsorship in 2024
           </p>

@@ -10,7 +10,8 @@ export default {
       colors: {
         primary: "#723D9E",
         secondary: "#ECE6F0",
-        faded:"#212121"
+        faded:"#212121",
+        hover:"#ECE6F0",
       },
     },
   },
