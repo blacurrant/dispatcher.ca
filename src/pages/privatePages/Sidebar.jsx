@@ -29,11 +29,6 @@ const Sidebar = () => {
       icon: <HomeIcon />,
     },
     {
-      name: "Analytics",
-      path: "/analytics",
-      icon: <AnalyticsIcon />,
-    },
-    {
       name: "My Events",
       path: "/events",
       icon: <EventLogo />,
@@ -73,13 +68,11 @@ const Sidebar = () => {
               key={index}
             >
               {option?.icon}
-              <p
-                className={`transition-opacity duration-300 ease-in-out ${
-                  toggle?.sidebar ? "opacity-0 w-0" : "opacity-100 w-auto"
-                }`}
-              >
-                {option?.name}
-              </p>
+              {!toggle?.sidebar && (
+                <p className={`transition-opacity duration-300 ease-in-out $`}>
+                  {option?.name}
+                </p>
+              )}
               {option?.comingSoon && (
                 <p
                   className={`text-[10px] bg-primary text-white px-2 transition-all duration-300 ease-in-out ${

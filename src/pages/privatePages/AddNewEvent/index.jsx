@@ -5,8 +5,12 @@ import BudgetSponsorshipForm from "./BudgetSponsorship";
 import EventDetailsForm from "./UploadContent";
 import CompanyGoals from "./CompanyGoals";
 import { Button, ConfigProvider, Form, Input, Typography } from "antd";
+import { useDispatch } from "react-redux";
+import { setNewEventSlice } from "../../../store/slices/newEventSlice";
 
 const AddEvent = () => {
+
+  const dispatch = useDispatch();
   const [eventFormData, setEventFormData] = useState({
     attendeeRoles: "",
     demographicSpecs: "",
@@ -16,6 +20,12 @@ const AddEvent = () => {
     eventUrl: "",
     eventDate: "",
     attendingEmployees: "",
+    selectedBusiness:"",
+    kpi: "",
+    brandStrategies: "",
+    eventBudget:"",
+    sponsorLevel: "",
+    budgetAllocations: [],
 
     // Add fields for other sections like EventOverviewForm, CompanyGoals, etc.
   });
@@ -29,6 +39,7 @@ const AddEvent = () => {
 
   const handleCreate = () => {
     console.log("Form data:", eventFormData);
+    dispatch(setNewEventSlice(eventFormData))
     setEventFormData({
       attendeeRoles: "",
       demographicSpecs: "",
@@ -38,6 +49,12 @@ const AddEvent = () => {
       eventUrl: "",
       eventDate: "",
       attendingEmployees: "",
+      selectedBusiness:"",
+      kpi: "",
+      brandStrategies: "",
+      eventBudget:"",
+      sponsorLevel: "",
+      budgetAllocations: [],
     });    
   }
 
@@ -137,6 +154,7 @@ const AddEvent = () => {
           <CompanyGoals
             formData={eventFormData}
             onInputChange={handleInputChange}
+            setEventFormData={setEventFormData}
           />
           <BudgetSponsorshipForm
             formData={eventFormData}

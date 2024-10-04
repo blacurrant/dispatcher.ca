@@ -25,7 +25,7 @@ const businessOptions = [
   { icon: <MoreIcon />, label: "Other" },
 ];
 
-export default function CompanyGoals() {
+export default function CompanyGoals({ formData, onInputChange }) {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   //   const [hasSponsored, setHasSponsored] = useState(null);
 
@@ -56,7 +56,9 @@ export default function CompanyGoals() {
                   ? "!bg-primary text-white border-primary"
                   : "bg-white text-gray-500 border-gray-300 hover:border-primary"
               }`}
-              onClick={() => setSelectedBusiness(option.label)}
+              // onClick={() => setSelectedBusiness(option.label)}
+              value={formData.selectedBusiness}
+              onClick={() => onInputChange("selectedBusiness", option.label)}
             >
               <p
                 className={`text-sm ${
@@ -77,14 +79,14 @@ export default function CompanyGoals() {
           label="List all the Key Performance Indicators for the event "
           extra="(e.g., number of leads, ROI, customer acquisition cost, engagement)"
         >
-          <TextArea rows={2} style={textAreaStyle} />
+          <TextArea value={formData?.kpi} onChange={(e)=> onInputChange("kpi", e.target.value)} rows={2} style={textAreaStyle} />
         </Form.Item>
 
         <Form.Item
           label="List all marketing & branding strategies for the event "
           extra="(e.g., giveaways, demos, speaking slots, panel participation)"
         >
-          <TextArea rows={2} style={textAreaStyle} />
+          <TextArea value={formData?.brandStrategies} onChange={(e)=> onInputChange("brandStrategies", e.target.value)}  rows={2} style={textAreaStyle} />
         </Form.Item>
       </div>
       {/* </Form> */}

@@ -65,7 +65,7 @@ export default function SponsoredEvents() {
       <div className="h-full flex gap-6">
         <div className="h-full w-2/5 flex flex-col items-start">
           <p className="mb-6 text-3xl font-light">Sponsored Events</p>
-          <div className="w-full space-y-4">
+          <div className="w-full space-y-2">
             {events.map((event) => (
               <div
                 onClick={() => setActiveEvent(event)}
@@ -77,7 +77,7 @@ export default function SponsoredEvents() {
                 }`}
               >
                 <div
-                  className={`flex items-center rounded-l-lg p-4 pr-8 ${
+                  className={`flex items-center rounded-l-lg px-4 py-2 pr-8 ${
                     activeEvent.id === event.id
                       ? "bg-secondary relative"
                       : "hover:bg-gray-100"
@@ -117,12 +117,12 @@ export default function SponsoredEvents() {
           </div>
         </div>
         <Card
-          className="relative w-3/5 h-full shadow-sm shadow-primary"
+          className="relative w-3/5 h-[46vh] shadow-sm shadow-primary"
           cover={
             <img
               alt={activeEvent.name}
               src={activeEvent.image}
-              className="h-48 object-cover "
+              className="h-[150px] object-cover "
             />
           }
         >
@@ -143,24 +143,22 @@ export default function SponsoredEvents() {
                 type="circle"
                 percent={activeEvent.propScore}
                 width={40}
-                strokeColor={{
-                  "0%": "#ECE6F0",
-                  "100%": "#723D9E",
-                }}
+                strokeColor={{ "0%": "#ECE6F0", "100%": "#723D9E" }}
               />
             </div>
           </div>
-          {/* <Divider /> */}
-          <Text className="mb-4">{activeEvent.description}</Text>
+          <p className="mb-2">{activeEvent.description}</p>
           <div className="flex justify-between items-center ">
             <div className="flex items-center">
               <TeamOutlined className="mr-1 text-primary" />
-              <Text className="text-primary">{activeEvent.attendees}</Text>
+              <Text className="text-sm text-primary">
+                {activeEvent.attendees}
+              </Text>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <TagOutlined className="mr-1 text-primary" />
               <Text className="text-primary">{activeEvent.type}</Text>
-            </div>
+            </div> */}
             <div className=" text-right">
               <Text className="text-primary cursor-pointer">
                 View Details <RightOutlined />

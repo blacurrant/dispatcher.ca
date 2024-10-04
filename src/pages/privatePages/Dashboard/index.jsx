@@ -27,7 +27,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex">
+    <div className="w-full max-h-[90vh] overflow-hidden flex">
       {formDrawer && (
         <DrawerComponent
           handleClose={handleClose}
@@ -43,7 +43,7 @@ const Home = () => {
           setIsModalVisible={setIsModalVisible}
         />
       )}
-      <div className="flex flex-col w-2/3 h-full shadow-lg bg-white p-2 ">
+      <div className="flex flex-col w-2/3 h-full shadow-lg bg-white p-2 gap-6 ">
         <WelcomeBanner />
         <div className="flex">
           <SponsoredEvents />
