@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { Button, Drawer, Image, Space } from "antd";
+import { Button, ConfigProvider, Drawer, Image, Space } from "antd";
 import { useState } from "react";
 import { motion } from "framer-motion";
 import UserProfileForm from "./boardTwo";
@@ -26,6 +26,15 @@ const DrawerComponent = ({
 }) => {
   const [formData, setFormData] = useState(null);
   const [formTab, setFormTab] = useState(1);
+
+  const purpleTheme = {
+    token: {
+      colorPrimary: "#723D9E",
+      colorLink: "#723D9E",
+      colorLinkHover: "#723D9E",
+      borderRadius: 16,
+    },
+  };
 
   return (
     <Drawer
@@ -56,36 +65,47 @@ const DrawerComponent = ({
         />
         <p className="text-primary font-bold text-md">Skip this page</p>
       </div>
-      <motion.div
-        key={formTab} // Key changes trigger animation when formTab changes
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-        variants={variants}
-        transition={{ duration: 0.5 }} // Adjust animation speed
-      >
-        {formTab === 1 && (
-          <StartBoarding setFormTab={setFormTab} setFormData={setFormData} />
-        )}
-        {formTab === 2 && (
-          <UserProfileForm setFormTab={setFormTab} setFormData={setFormData} />
-        )}
-        {formTab === 3 && (
-          <CompanyInfoForm setFormTab={setFormTab} setFormData={setFormData} />
-        )}
-        {formTab === 4 && (
-          <ProductUsageForm setFormTab={setFormTab} setFormData={setFormData} />
-        )}
-        {formTab === 5 && (
-          <InviteTeamForm
-            setFormTab={setFormTab}
-            setFormData={setFormData}
-            setFormDrawer={setFormDrawer}
-            setIsModalVisible={setIsModalVisible}
-            isModalVisible={isModalVisible}
-          />
-        )}
-      </motion.div>
+      <ConfigProvider theme={purpleTheme}>
+        <motion.div
+          key={formTab} // Key changes trigger animation when formTab changes
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          variants={variants}
+          transition={{ duration: 0.5 }} // Adjust animation speed
+        >
+          {formTab === 1 && (
+            <StartBoarding setFormTab={setFormTab} setFormData={setFormData} />
+          )}
+          {formTab === 2 && (
+            <UserProfileForm
+              setFormTab={setFormTab}
+              setFormData={setFormData}
+            />
+          )}
+          {formTab === 3 && (
+            <CompanyInfoForm
+              setFormTab={setFormTab}
+              setFormData={setFormData}
+            />
+          )}
+          {formTab === 4 && (
+            <ProductUsageForm
+              setFormTab={setFormTab}
+              setFormData={setFormData}
+            />
+          )}
+          {formTab === 5 && (
+            <InviteTeamForm
+              setFormTab={setFormTab}
+              setFormData={setFormData}
+              setFormDrawer={setFormDrawer}
+              setIsModalVisible={setIsModalVisible}
+              isModalVisible={isModalVisible}
+            />
+          )}
+        </motion.div>
+      </ConfigProvider>
     </Drawer>
   );
 };

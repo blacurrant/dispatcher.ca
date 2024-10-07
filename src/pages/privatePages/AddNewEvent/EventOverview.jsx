@@ -15,12 +15,12 @@ export default function EventOverviewForm({ formData, onInputChange }) {
         <h2 className="text-2xl font-light font-lora my-6 border-b border-purple-90">
           Event Overview
         </h2>
-        <Form
+        {/* <Form
           form={form}
           name="eventOverview"
           onFinish={onFinish}
           layout="vertical"
-        >
+        > */}
           <div className="grid grid-cols-1 w-full ">
             <div className="w-full  px-2 ">
               <Form.Item
@@ -75,7 +75,7 @@ export default function EventOverviewForm({ formData, onInputChange }) {
             <div className="w-full  px-2 ">
               <Form.Item
                 name="employeesAttending"
-                label="# Employees Attending"
+                label="Total Employees Attending"
                 rules={[
                   {
                     required: true,
@@ -84,6 +84,7 @@ export default function EventOverviewForm({ formData, onInputChange }) {
                 ]}
               >
                 <Input
+                type="number"
                   placeholder="Attending employees"
                   className="w-full !rounded-2xl h-[48px]"
                   value={formData.attendingEmployees}
@@ -94,7 +95,7 @@ export default function EventOverviewForm({ formData, onInputChange }) {
               </Form.Item>
             </div>
           </div>
-        </Form>
+        {/* </Form> */}
       </div>
       <div className="w-1/2 flex items-center justify-center">
         <EventIllustration />

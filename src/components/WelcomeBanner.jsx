@@ -8,7 +8,7 @@ export default function WelcomeBanner() {
 
   return (
     <div className="relative w-full mx-auto px-6">
-      <h1 className="text-3xl font-light text-gray-800 py-2 ">Hey, {userInfo?.displayName}!</h1>
+      <h1 className="text-3xl font-light text-primary py-2 ">Hey {userInfo?.displayName}!</h1>
       <div className=" bg-secondary rounded-3xl  overflow-hidden">
         <div className="w-full md:w-[80%] flex flex-col gap-4 p-6">
           <h2 className="w-[80%] text-2xl md:text-3xl font-semibold text-primary leading-tight">

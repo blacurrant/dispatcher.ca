@@ -44,7 +44,7 @@ const MyRoutes = () => {
         <Route path="/campaign" element={<Campaign />} />
         <Route path="/events" element={<MyEvents />} />
         <Route path="/addEvent" element={<AddEvent />} />
-        <Route path="/events/:event" element={<EventPage />} />
+        <Route path="/events/:eventName" element={<AddEvent />} />
         <Route path="/attendees" element={<AttendeeList />} />
       </Route>
 
