@@ -62,19 +62,19 @@ export default function MyEvents() {
   console.log(events, "events");
 
   const renderTrip = (event, index) => (
-    <Card
+    <div
       key={event.id}
-      className="w-full border border-primary border-opacity-30 shadow-md rounded-2xl"
+      className="w-full p-4"
     >
       <div className="w-full flex flex-col md:flex-row">
         <div className="md:w-1/4 flex items-center justify-evenly md:mb-0">
           <div className="text-center flex gap-4 items-center justify-center">
             <div>
               <div className="text-4xl font-bold text-gray-700">
-                {event?.eventDate?.split(-1, 2)}
+                {event?.eventDate?.slice(0,10)}
               </div>
               <div className="text-xl text-gray-500">
-                {event.month?.split(5, 6)}
+                Feb
               </div>
             </div>
             {/* <p className="text-gray-500 text-sm text-left w-1/2 ">
@@ -96,9 +96,9 @@ export default function MyEvents() {
           />
           <div className="md:w-2/3 pr-4 flex flex-col gap-2 justify-center">
             <h3 className="text-xl font-semibold ">{event.eventName}</h3>
-            {/* <p className="text-gray-500 ">{event.duration}</p> */}
+            <p className="text-gray-500 "><CalendarOutlined className="mr-2" />Fri, 11 Jan 2024 - Sat, 15 Jan 2024</p>
             {/* <h4 className="text-lg font-semibold ">{event.hotelName}</h4> */}
-            {/* <p className="text-gray-600 ">{event.description}</p> */}
+            <p className="text-gray-600 ">Web Summit will bring together 70,000+ people, and the companies redefining the tech industry.</p>
           </div>
           <div className="md:w-1/3 flex flex-col gap-3 md:mt-0 items-center justify-center">
             <Button
@@ -122,7 +122,7 @@ export default function MyEvents() {
           </div>
         </div>
       </div>
-    </Card>
+    </div>
   );
 
   return (
@@ -138,15 +138,6 @@ export default function MyEvents() {
         >
           Add New Event
         </Button>{" "}
-        <Button
-          size="large"
-          type="primary"
-          icon={<PlusOutlined />}
-          className="w-fit bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl px-12"
-          onClick={() => dispatch(setNewEventSlice(null))}
-        >
-          remove events
-        </Button>{" "}
       </div>
       <Tabs
         activeKey={activeTab}
@@ -154,7 +145,7 @@ export default function MyEvents() {
         className="custom-tabs h-full"
       >
         <TabPane
-          className="h-full flex flex-col gap-5 "
+          className="h-full bg-white rounded-xl flex flex-col gap-5"
           tab="Upcoming Events"
           key="upcoming"
         >

@@ -144,7 +144,7 @@ const AddEvent = () => {
                       <DatePicker
                         value={eventFormData.eventDate}
                         onChange={(date, dateString) =>
-                          handleInputChange("eventDate", dateString)
+                          handleInputChange("eventDate", date)
                         }
                         className="w-full !rounded-2xl h-[48px]"
                       />
