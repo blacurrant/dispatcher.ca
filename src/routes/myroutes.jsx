@@ -12,6 +12,7 @@ import MyEvents from "../pages/privatePages/MyEvents";
 import AddEvent from "../pages/privatePages/AddNewEvent";
 import EventPage from "../pages/privatePages/MyEvents/EventDescription";
 import AttendeeList from "../pages/privatePages/Analytics/DetailedAnalytics";
+import MyProfile from "../pages/privatePages/Settings/MyProfile";
 
 const MyRoutes = () => {
   const user = useSelector((state) => state?.currentUserSlice?.userInfo);
@@ -46,6 +47,7 @@ const MyRoutes = () => {
         <Route path="/addEvent" element={<AddEvent />} />
         <Route path="/events/:eventName" element={<AddEvent />} />
         <Route path="/attendees" element={<AttendeeList />} />
+        <Route path="/settings" element={<MyProfile />} />
       </Route>
 
       {/* Redirect to login if no matching route */}

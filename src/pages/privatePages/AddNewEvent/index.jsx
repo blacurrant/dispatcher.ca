@@ -13,32 +13,35 @@ import {
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setNewEventSlice } from "../../../store/slices/newEventSlice";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { EventIllustration } from "../../../utils/Illustrations";
+import { ArrowLeft, MoveLeftIcon } from "lucide-react";
+import { FaArrowLeft } from "react-icons/fa";
 
 const AddEvent = () => {
   const [form] = Form.useForm(); // Use Ant Design form instance
   const location = useLocation();
   const eventDetails = useSelector((state) => state?.newEventSlice?.data);
+  const navigate = useNavigate();
 
   console.log(eventDetails, "ddasdas");
   console.log(location?.state?.eventName, "location");
 
   const initialValues = {
-    attendeeRoles: "",
-    demographicSpecs: "",
-    engagementTactics: "",
-    targetSegments: "",
-    eventName: location?.state?.eventName || "",
-    eventUrl: "",
-    eventDate: "",
-    attendingEmployees: "",
-    selectedBusiness: [],
-    kpi: "",
-    brandStrategies: "",
-    eventBudget: "",
-    sponsorLevel: "",
-    budgetAllocations: [],
+    attendeeRoles: location?.state?.attendeeRoles ?? "",
+    demographicSpecs: location?.state?.demographicSpecs ?? "",
+    engagementTactics: location?.state?.engagementTactics ?? "",
+    targetSegments: location?.state?.targetSegments ?? "",
+    eventName: location?.state?.eventName ?? "",
+    eventUrl: location?.state?.eventUrl ?? "",
+    eventDate: location?.state?.eventDate ? moment(location.state.eventDate) : null,
+    attendingEmployees: location?.state?.attendingEmployees ?? "",
+    selectedBusiness: location?.state?.selectedBusiness ?? [],
+    kpi: location?.state?.kpi ?? "",
+    brandStrategies: location?.state?.brandStrategies ?? "",
+    eventBudget: location?.state?.eventBudget ?? "",
+    sponsorLevel: location?.state?.sponsorLevel ?? "",
+    budgetAllocations: location?.state?.budgetAllocations ?? [],
   };
 
   const dispatch = useDispatch();
@@ -65,6 +68,7 @@ const AddEvent = () => {
 
     console.log("Form data to send:", eventDataToSend);
     dispatch(setNewEventSlice(eventDataToSend));
+    navigate("/events");
 
     // Reset the form data
     setEventFormData(initialValues); // Reset with initial values
@@ -88,6 +92,10 @@ const AddEvent = () => {
 
   return (
     <div className="w-full max-h-[90vh] flex flex-col p-2 overflow-auto bg-purple-50  ">
+      <div onClick={() => navigate("/events")} className="w-fit flex gap-2 p-2 items-center cursor-pointer  hover:underline">
+        <FaArrowLeft />
+        <p className="font-normal text-xl">back to events</p>
+      </div>
       <p className="text-3xl font-light p-6">
         {location?.state ? `Edit Event ` : "Add New Event"}
       </p>
@@ -143,9 +151,15 @@ const AddEvent = () => {
                     >
                       <DatePicker
                         value={eventFormData.eventDate}
-                        onChange={(date, dateString) =>
-                          handleInputChange("eventDate", date)
-                        }
+                        onChange={(date, dateString) => {
+                          console.log(moment(dateString).locale("es"), "sdsds");
+                          console.log(moment(dateString), "without sdsds");
+
+                          handleInputChange(
+                            "eventDate",
+                            moment(dateString)
+                          );
+                        }}
                         className="w-full !rounded-2xl h-[48px]"
                       />
                     </Form.Item>

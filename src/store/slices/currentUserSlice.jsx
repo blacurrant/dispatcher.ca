@@ -15,9 +15,9 @@ const currentUserSlice = createSlice({
       console.log("payload", action?.payload);
       state.completedOnboarding = action.payload;
     },
-    // setOnboardingInfo: (state, action) => {
-    //   state.onboardingInfo = action?.payload;
-    // },
+    setOnboardingInfo: (state, action) => {
+      state.onboardingInfo = {...state.onboardingInfo , ...action?.payload};
+    },
   },
 });
 export const { setCurrentUserSlice, setOnboardingInfo, completedOnboarding } =

@@ -34,10 +34,9 @@ const Sidebar = () => {
       icon: <EventLogo />,
     },
     {
-      name: "Campaign",
-      path: "/campaign",
-      icon: "+",
-      comingSoon: true,
+      name: "Settings",
+      path: "/settings",
+      icon: <AnalyticsIcon />,
     },
   ];
 

@@ -9,48 +9,10 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EmptyEvents } from "../../../utils/Illustrations";
 import { setNewEventSlice } from "../../../store/slices/newEventSlice";
+import moment from "moment";
 
 const { TabPane } = Tabs;
 const { Option } = Select;
-
-// const trips = [
-//   {
-//     id: 1,
-//     date: "10",
-//     month: "Jan",
-//     eventName: "Tech Conference 2024",
-//     duration: "7 Days, 6 Nights",
-//     hotelName: "PM Fiasco 2025",
-//     description:
-//       "Relish a unique blend of relaxation and luxury on this exotic vacation at the Standard Huruvalhi, Maldives.",
-//     dateRange: "Fri, 11 Jan 2024 - Sat, 15 Jan 2024",
-//     image: "/placeholder.svg?height=200&width=300",
-//   },
-//   {
-//     id: 2,
-//     date: "15",
-//     month: "Feb",
-//     eventName: "Webdev Summit 2024",
-//     duration: "5 Days, 4 Nights",
-//     hotelName: "Webdev Summit 2024",
-//     description:
-//       "Immerse yourself in nature and team building activities at this sustainable eco-resort in Bali.",
-//     dateRange: "Mon, 15 Feb 2024 - Fri, 19 Feb 2024",
-//     image: "/placeholder.svg?height=200&width=300",
-//   },
-//   {
-//     id: 3,
-//     date: "17",
-//     month: "Feb",
-//     eventName: "ISCON Offsite",
-//     duration: "5 Days, 4 Nights",
-//     hotelName: "Webdev Summit 2024",
-//     description:
-//       "Immerse yourself in nature and team building activities at this sustainable eco-resort in Bali.",
-//     dateRange: "Mon, 15 Feb 2024 - Fri, 19 Feb 2024",
-//     image: "/placeholder.svg?height=200&width=300",
-//   },
-// ];
 
 export default function MyEvents() {
   const [activeTab, setActiveTab] = useState("upcoming");
@@ -62,19 +24,16 @@ export default function MyEvents() {
   console.log(events, "events");
 
   const renderTrip = (event, index) => (
-    <div
-      key={event.id}
-      className="w-full p-4"
-    >
-      <div className="w-full flex flex-col md:flex-row">
+    <div key={event.id} className="w-full p-4 h-[200px]">
+      <div className="w-full h-full flex flex-col md:flex-row">
         <div className="md:w-1/4 flex items-center justify-evenly md:mb-0">
           <div className="text-center flex gap-4 items-center justify-center">
             <div>
               <div className="text-4xl font-bold text-gray-700">
-                {event?.eventDate?.slice(0,10)}
+                {moment(event?.eventDate).format("DD")}
               </div>
               <div className="text-xl text-gray-500">
-                Feb
+                {moment(event?.eventDate).format("MMMM").slice(0, 3)}
               </div>
             </div>
             {/* <p className="text-gray-500 text-sm text-left w-1/2 ">
@@ -96,14 +55,20 @@ export default function MyEvents() {
           />
           <div className="md:w-2/3 pr-4 flex flex-col gap-2 justify-center">
             <h3 className="text-xl font-semibold ">{event.eventName}</h3>
-            <p className="text-gray-500 "><CalendarOutlined className="mr-2" />Fri, 11 Jan 2024 - Sat, 15 Jan 2024</p>
+            <p className="text-gray-500 ">
+              <CalendarOutlined className="mr-2" />
+              Fri, 11 Jan 2024 - Sat, 15 Jan 2024
+            </p>
             {/* <h4 className="text-lg font-semibold ">{event.hotelName}</h4> */}
-            <p className="text-gray-600 ">Web Summit will bring together 70,000+ people, and the companies redefining the tech industry.</p>
+            <p className="text-gray-600 ">
+              Web Summit will bring together 70,000+ people, and the companies
+              redefining the tech industry.
+            </p>
           </div>
           <div className="md:w-1/3 flex flex-col gap-3 md:mt-0 items-center justify-center">
             <Button
               type="default"
-              className=" w-full flex items-center justify-center bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
+              className=" w-full flex items-center justify-center rounded-xl bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
               icon={<RightOutlined />}
               onClick={() => navigate("/analytics")}
             >
@@ -111,10 +76,10 @@ export default function MyEvents() {
             </Button>
             <Button
               type="default"
-              className=" w-full flex items-center justify-center bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
+              className=" w-full flex items-center justify-center rounded-xl bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
               icon={<RightOutlined />}
               onClick={() =>
-                navigate(`/events/${event.eventName},`, { state: event })
+                navigate(`/events/${event.eventName}`, { state: event })
               }
             >
               Edit Details
