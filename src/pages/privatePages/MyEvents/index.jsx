@@ -98,7 +98,6 @@ export default function MyEvents() {
             </Button>
             <Tooltip title="Set goals to see analytics">
               <Button
-                disabled={true}
                 type="default"
                 className=" w-full flex items-center justify-center rounded-xl bg-primary text-white border"
                 icon={<RightOutlined />}
