@@ -148,7 +148,7 @@ export default function SponsoredEvents() {
                       {activeEvent.attendees}
                     </Text>
                   </div>
-                  <div className="text-right">
+                  <div onClick={() => navigate("/analytics")} className="text-right">
                     <Text className="text-primary cursor-pointer">
                       View Analytics <RightOutlined />
                     </Text>
