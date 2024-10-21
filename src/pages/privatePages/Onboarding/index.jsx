@@ -93,9 +93,12 @@ const DrawerComponent = ({
             <ProductUsageForm
               setFormTab={setFormTab}
               setFormData={setFormData}
+              setFormDrawer={setFormDrawer}
+              setIsModalVisible={setIsModalVisible}
+              isModalVisible={isModalVisible}
             />
           )}
-          {formTab === 5 && (
+          {/* {formTab === 5 && (
             <InviteTeamForm
               setFormTab={setFormTab}
               setFormData={setFormData}
@@ -103,7 +106,7 @@ const DrawerComponent = ({
               setIsModalVisible={setIsModalVisible}
               isModalVisible={isModalVisible}
             />
-          )}
+          )} */}
         </motion.div>
       </ConfigProvider>
     </Drawer>

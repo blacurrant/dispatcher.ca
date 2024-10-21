@@ -2,6 +2,8 @@
 import React, { useState } from "react";
 import { Form, Input, Button, Progress, Typography } from "antd";
 import { ArrowRightOutlined, ArrowLeftOutlined } from "@ant-design/icons";
+import { useDispatch } from "react-redux";
+import { setOnboardingInfo } from "../../../store/slices/currentUserSlice";
 
 const { Title, Paragraph } = Typography;
 
@@ -19,9 +21,13 @@ const jobRoles = [
 export default function UserProfileForm({ setFormTab }) {
   const [selectedRoles, setSelectedRoles] = useState('');
 
+  const dispatch = useDispatch();
+
   const onFinish = (values) => {
+
+    dispatch(setOnboardingInfo({...values, designation: selectedRoles}));
     setFormTab(3);
-    console.log("Form values:", { ...values, roles: selectedRoles });
+    console.log("Form values:", { ...values, designation: selectedRoles });
   };
 
   const toggleRole = (role) => {
@@ -31,7 +37,7 @@ export default function UserProfileForm({ setFormTab }) {
   return (
     // <div className='w-full h-full'>
 
-    <div className="w-[600px] h-full mx-auto p-6 bg-white rounded-3xl">
+    <div className="w-[600px] h-full mx-auto p-6 shadow-lg rounded-3xl">
       <Progress
         percent={25}
         showInfo={false}
@@ -58,7 +64,7 @@ export default function UserProfileForm({ setFormTab }) {
       <Form layout="vertical" onFinish={onFinish}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <Form.Item
-            name="firstName"
+            name="first_name"
             label="First Name"
             rules={[
               // { required: true, message: "Please input your first name!" },
@@ -67,7 +73,7 @@ export default function UserProfileForm({ setFormTab }) {
             <Input className="!rounded-2xl !h-[48px]" />
           </Form.Item>
           <Form.Item
-            name="lastName"
+            name="last_name"
             label="Last Name"
             rules={[
               // { required: true, message: "Please input your last name!" },
@@ -77,7 +83,7 @@ export default function UserProfileForm({ setFormTab }) {
           </Form.Item>
         </div>
 
-        <Form.Item label="What Describes you the best?">
+        <Form.Item name="designation" label="What Describes you the best?">
           <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
             {jobRoles.map((role) => (
               <Button
@@ -100,7 +106,7 @@ export default function UserProfileForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(1)}
-              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back 

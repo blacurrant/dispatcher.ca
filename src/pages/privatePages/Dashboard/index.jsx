@@ -6,6 +6,7 @@ import EventCard from "../../../components/EventCard";
 import DrawerComponent from "../Onboarding";
 import { useSelector } from "react-redux";
 import OnboardingCompletionModal from "../Onboarding/BoardingModal";
+import { getUserApi } from "../../../api/Api_collection";
 
 const Home = () => {
   const [formDrawer, setFormDrawer] = useState(false);
@@ -14,20 +15,33 @@ const Home = () => {
   const completedOnboarding = useSelector(
     (state) => state?.currentUserSlice?.completedOnboarding
   );
-  console.log("completedOnboarding", completedOnboarding);
+  const userInfo = useSelector(
+    (state) => state?.currentUserSlice?.userInfo
+  );
+  console.log("userInfo====", userInfo);
 
   const handleClose = () => {
     setFormDrawer(false);
   };
 
+  const fetchUserData = async() => {
+    try {
+      const response = await getUserApi();
+      console.log("response", response);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  }
+
   useEffect(() => {
     if (!completedOnboarding) {
       setFormDrawer(true);
+      fetchUserData();
     }
   }, []);
 
   return (
-    <div className="w-full max-h-[90vh] overflow-hidden flex">
+    <div className="w-full max-h-[90vh] overflow-hidden flex bg-white">
       {formDrawer && (
         <DrawerComponent
           handleClose={handleClose}
@@ -43,15 +57,17 @@ const Home = () => {
           setIsModalVisible={setIsModalVisible}
         />
       )}
-      <div className="flex flex-col w-2/3 h-full shadow-lg bg-white p-2 gap-6 ">
-        <WelcomeBanner />
-        <div className="flex">
+      <div className="flex flex-col w-full h-full shadow-lg  p-2  ">
+        <div className="flex w-full gap-6">
+          <WelcomeBanner />
+          <EventCard />
+        </div>
+        <div className="flex h-full">
           <SponsoredEvents />
         </div>
       </div>
-      <div className="w-1/3">
-        <EventCard />
-      </div>
+      {/* <div className="w-1/3">
+      </div> */}
     </div>
   );
 };

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Form, Button, Progress, Typography, Upload, Radio } from "antd";
-import {
-  UploadOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-} from "@ant-design/icons";
+import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import {
   PreEventAnalysis,
   TakeNotes,
@@ -13,6 +9,12 @@ import {
   SetGoals,
   MoreIcon,
 } from "../../../utils/images";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  completedOnboarding,
+  setOnboardingInfo,
+} from "../../../store/slices/currentUserSlice";
+import { createUserApi } from "../../../api/Api_collection";
 
 const { Title, Paragraph } = Typography;
 
@@ -25,20 +27,54 @@ const businessOptions = [
   { icon: <MoreIcon />, label: "Other" },
 ];
 
-export default function ProductUsageForm({ setFormTab }) {
+export default function ProductUsageForm({
+  setFormTab,
+  setFormDrawer,
+  setIsModalVisible,
+}) {
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [hasSponsored, setHasSponsored] = useState(null);
 
-  const onFinish = (values) => {
-    setFormTab(5);
+  const dispatch = useDispatch();
+  const createUser = useSelector(
+    (state) => state.currentUserSlice?.onboardingInfo
+  );
+  const userInfo = useSelector((state) => state?.currentUserSlice?.userInfo);
+  console.log(userInfo, "createUser");
+
+  const onFinish = async (values) => {
+    dispatch(
+      setOnboardingInfo({
+        ...values,
+        platform_usage_type: selectedBusiness,
+        is_sponsor: hasSponsored,
+
+      })
+    );
+
+    const user = {
+      ...createUser,
+      platform_usage_type: selectedBusiness,
+      is_sponsor: hasSponsored,
+      email: userInfo?.email,
+      user_id: userInfo?.uid,
+      is_active: true,
+    };
+    const res = await createUserApi(user);
+    console.log("API response:", res);
+
+    dispatch(completedOnboarding(true));
+    setFormDrawer(false);
+    setIsModalVisible(true); // Open the modal
     console.log("Form values:", {
       ...values,
       businessDescription: selectedBusiness,
     });
+    dispatch(setOnboardingInfo(null));
   };
 
   return (
-    <div className="w-[600px] mx-auto p-6 bg-white rounded-3xl">
+    <div className="w-[600px] mx-auto p-6 shadow-lg rounded-3xl">
       <Progress
         percent={75}
         showInfo={false}
@@ -57,7 +93,7 @@ export default function ProductUsageForm({ setFormTab }) {
 
       <Form layout="vertical" onFinish={onFinish}>
         <p className="!text-md !font-semibold !text-gray-500 py-4">
-          Pick one that describes your business
+        Pick your event marketing goals
         </p>
         <Form.Item>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
@@ -65,15 +101,22 @@ export default function ProductUsageForm({ setFormTab }) {
               <Button
                 key={option.label}
                 className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
-                  selectedBusiness === option.label
+                  selectedBusiness && selectedBusiness.includes(option.label)
                     ? "!bg-primary text-white border-primary "
                     : "bg-white text-gray-500 border-gray-300 hover:border-primary"
                 }`}
-                onClick={() => setSelectedBusiness(option.label)}
+                onClick={() => {
+                  setSelectedBusiness(prevSelected => {
+                    if (!prevSelected) return [option.label];
+                    return prevSelected.includes(option.label)
+                      ? prevSelected.filter(item => item !== option.label)
+                      : [...prevSelected, option.label];
+                  });
+                }}
               >
                 <p
                   className={`text-sm ${
-                    selectedBusiness === option.label
+                    selectedBusiness && selectedBusiness.includes(option.label)
                       ? "stroke-current text-white" // Active state stroke color
                       : "stroke-current text-gray-500" // Inactive state stroke color
                   }`}
@@ -96,9 +139,7 @@ export default function ProductUsageForm({ setFormTab }) {
                   type={hasSponsored === true ? "primary" : "default"}
                   onClick={() => setHasSponsored(true)}
                   className={`w-full h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
-                    hasSponsored === true
-                      ? "bg-primary "
-                      : ""
+                    hasSponsored === true ? "bg-primary " : ""
                   }`}
                 >
                   Yes
@@ -107,33 +148,12 @@ export default function ProductUsageForm({ setFormTab }) {
                   type={hasSponsored === false ? "primary" : "default"}
                   onClick={() => setHasSponsored(false)}
                   className={`w-full h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
-                    hasSponsored === false
-                      ? "bg-primary "
-                      : ""
+                    hasSponsored === false ? "bg-primary " : ""
                   }`}
                 >
                   No
                 </Button>
               </div>
-            </div>
-          </Form.Item>
-
-          <Form.Item className="w-full">
-            <h2 className="!text-md !font-semibold !text-gray-500 py-4">
-              Upload lead list (if any)
-            </h2>
-            <div className="w-full">
-              <label htmlFor="upload-input">
-                <div className="w-full h-12 rounded-2xl bg-white border border-gray-300 flex items-center justify-center cursor-pointer hover:!bg-hover hover:!border-primary border">
-                  <span className="mr-2"><UploadOutlined /></span> {/* Icon Placeholder */}
-                  Upload
-                </div>
-              </label>
-              <input
-                id="upload-input"
-                type="file"
-                className="!hidden"
-              />
             </div>
           </Form.Item>
         </div>
@@ -143,7 +163,7 @@ export default function ProductUsageForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(3)}
-              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back
@@ -154,7 +174,7 @@ export default function ProductUsageForm({ setFormTab }) {
               htmlType="submit"
               className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
-              Continue <ArrowRightOutlined />
+              Submit <ArrowRightOutlined />
             </Button>
           </div>
         </Form.Item>

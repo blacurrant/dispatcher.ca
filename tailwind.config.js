@@ -9,9 +9,10 @@ export default {
       },
       colors: {
         primary: "#723D9E",
+        primary_light: "#FBF9FC",
         secondary: "#ECE6F0",
         faded:"#212121",
-        hover:"#ECE6F0",
+        hover:"#FBF9FC",
       },
     },
   },

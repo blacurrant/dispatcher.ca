@@ -9,6 +9,8 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurrentUserSlice } from "../../store/slices/currentUserSlice";
 import { openNotification } from "../../components/notifications";
+import { createUserApi } from "../../api/Api_collection";
+import { LoginIllustration } from "../../utils/Illustrations";
 
 export default function LoginForm() {
 
@@ -28,27 +30,47 @@ export default function LoginForm() {
   const handleGoogleSignIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleAuthProvider);
-      const user = result.user; // The signed-in user info
+      const user = result.user;
       console.log("User Info:", user);
-      dispatch(setCurrentUserSlice(user));
-      navigate("/");
-      openNotification("Success", "Logged in successfully", "success");
+      // const userData = {
+      //   email: user.email,
+      //   user_id: user.uid,
+      //   auth_token: user.accessToken,
+      // };
+
+      // console.log("Sending user data:", userData);
+      // const res = await createUserApi(userData);
+      // console.log("API response:", res);
+      
+      // if (res && res.data) {
+        dispatch(setCurrentUserSlice(user));
+        navigate("/");
+        openNotification("Success", "Logged in successfully", "success");
+      // } else {
+      //   throw new Error("Invalid response from server");
+      // }
     } catch (error) {
-      console.error("Error during Google sign-in:", error.message);
+      console.error("Error during Google sign-in:", error);
+      if (error.response) {
+        console.error("Error status:", error.response.status);
+        console.error("Error data:", error.response.data);
+      }
+      openNotification("Error", "Failed to sign in with Google", "error");
     }
   };
 
 
   return (
-    <div className="h-screen flex items-center justify-center bg-gray-50 p-2">
+    <div className="h-screen flex items-center justify-center  p-2">
 
-      <div className="w-full h-full flex flex-col justify-between bg-primary bg-opacity-80 rounded-3xl p-[56px]">
+      <div className="w-full h-full flex flex-col justify-between bg-primary_light rounded-3xl p-[80px]">
         {/* <img src="/logo.png" alt="logo" className="w-full" /> */}
-        <div className="text-white text-[48px]  font-semibold w-[90%] h-fit">
+        <div className=" text-[48px] text-primary font-semibold w-[90%] h-fit">
           <p>Embark on a Journey </p>
-          <p>of Growth with <span className="font-extrabold text-secondary">MelloUp!</span></p>{" "}
+          <p>of Growth with <span className="font-extrabold ">MelloUp!</span></p>{" "}
         </div>
-        <Image src={loginIllus} preview={false} className="w-full rounded-3xl" />
+        {/* <Image src={loginIllus} preview={false} className="w-full rounded-3xl" /> */}
+        <LoginIllustration />
       </div>
       <div className="w-full h-screen">
         <div className="w-full h-[10%] flex justify-end items-center">

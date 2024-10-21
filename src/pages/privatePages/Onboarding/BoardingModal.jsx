@@ -3,15 +3,21 @@ import { Modal, Button, Card } from "antd";
 import { DoneBoarding } from "../../../utils/images";
 import Paragraph from "antd/es/typography/Paragraph";
 import { openNotification } from "../../../components/notifications";
+import { useSelector } from "react-redux";
 
 export default function OnboardingCompletionModal({
   isModalVisible,
   setIsModalVisible,
 }) {
   //   const [isModalVisible, setIsModalVisible] = useState(true);
+  const createUser = useSelector(
+    (state) => state.currentUserSlice?.onBoardingInfo
+  );
+  console.log(createUser, "createUser");
 
   const handleOk = () => {
     console.log("ssdsds");
+
     setIsModalVisible(false);
     openNotification("Success", "Welcome Onboard!", "success");
 
@@ -25,6 +31,7 @@ export default function OnboardingCompletionModal({
       closable={true}
       width={600}
       bodyStyle={{ padding: 0 }}
+      onCancel={handleOk}
     >
       <div className="flex flex-col md:flex-row justify-between items-center mb-6">
         <div className="md:w-full md:pr-4">
@@ -41,7 +48,12 @@ export default function OnboardingCompletionModal({
           <DoneBoarding />
         </div>
       </div>
-      <div onClick={() => handleOk()} className="w-full flex justify-center items-center font-bold text-lg text-primary cursor-pointer">Explore MelloUp</div>
+      <div
+        onClick={() => handleOk()}
+        className="w-full flex justify-center items-center font-bold text-lg text-primary cursor-pointer"
+      >
+        Explore MelloUp
+      </div>
     </Modal>
   );
 }

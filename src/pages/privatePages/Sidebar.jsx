@@ -42,14 +42,14 @@ const Sidebar = () => {
 
   return (
     <div
-      className={`w-[20%] h-full flex flex-col justify-between border-r border-gray-200 shadow-lg bg-white transition-all duration-300 ease-in-out ${
+      className={`w-[20%] h-full flex flex-col justify-between shadow-lg bg-primary_light transition-all duration-300 ease-in-out ${
         toggle?.sidebar ? "w-[5%]" : "w-[20%]"
       }`}
     >
       <div className="relative rounded-lg flex flex-col ">
-        <div onClick={handleSidebar} className={`p-7 `}>
+        <div onClick={handleSidebar} className={`p-7 border-r-4 border-white`}>
           <div
-            className={`w-fit h-fit absolute right-2 top-4 transition-transform duration-300 ease-in-out ${
+            className={`w-fit h-fit left-2 transition-transform duration-300 ease-in-out ${
               toggle?.sidebar ? "rotate-180" : "rotate-0"
             } `}
           >
@@ -61,8 +61,8 @@ const Sidebar = () => {
             <Link
               to={option.path}
               onClick={() => setActiveTab(index)}
-              className={`hover:bg-blue-100 hover:border-blue-100 p-5 flex justify-start items-center border-r-4 border-white gap-2 transition-all duration-300 ease-in-out ${
-                activeTab === index ? "bg-blue-100 !border-primary" : ""
+              className={`hover:bg-secondary hover:border-blue-100 p-5 flex justify-start items-center border-r-4 border-white gap-2 transition-all duration-300 ease-in-out ${
+                activeTab === index ? "bg-secondary !border-primary" : ""
               }`}
               key={index}
             >

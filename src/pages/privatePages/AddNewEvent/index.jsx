@@ -9,60 +9,57 @@ import {
   DatePicker,
   Form,
   Input,
-  Typography,
 } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { setNewEventSlice } from "../../../store/slices/newEventSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import { EventIllustration } from "../../../utils/Illustrations";
-import { ArrowLeft, MoveLeftIcon } from "lucide-react";
 import { FaArrowLeft } from "react-icons/fa";
 
 const AddEvent = () => {
-  const [form] = Form.useForm(); // Use Ant Design form instance
+  const [form] = Form.useForm();
   const location = useLocation();
   const eventDetails = useSelector((state) => state?.newEventSlice?.data);
   const navigate = useNavigate();
 
   console.log(eventDetails, "ddasdas");
-  console.log(location?.state?.eventName, "location");
+  console.log(location?.state?.event_name, "location");
 
   const initialValues = {
-    attendeeRoles: location?.state?.attendeeRoles ?? "",
-    demographicSpecs: location?.state?.demographicSpecs ?? "",
-    engagementTactics: location?.state?.engagementTactics ?? "",
-    targetSegments: location?.state?.targetSegments ?? "",
-    eventName: location?.state?.eventName ?? "",
-    eventUrl: location?.state?.eventUrl ?? "",
-    eventDate: location?.state?.eventDate ? moment(location.state.eventDate) : null,
-    attendingEmployees: location?.state?.attendingEmployees ?? "",
-    selectedBusiness: location?.state?.selectedBusiness ?? [],
-    kpi: location?.state?.kpi ?? "",
-    brandStrategies: location?.state?.brandStrategies ?? "",
-    eventBudget: location?.state?.eventBudget ?? "",
-    sponsorLevel: location?.state?.sponsorLevel ?? "",
+    target_roles: location?.state?.target_roles ?? "",
+    target_demographics: location?.state?.target_demographics ?? "",
+    target_engagement_tactics: location?.state?.target_engagement_tactics ?? "",
+    target_segment_type: location?.state?.target_segment_type ?? "",
+    event_name: location?.state?.event_name ?? "",
+    event_url: location?.state?.event_url ?? "",
+    event_date: location?.state?.event_date ? moment(location.state.event_date) : null,
+    event_employee_count: location?.state?.event_employee_count ?? "",
+    company_goals: location?.state?.company_goals ?? [],
+    list_of_KPIs: location?.state?.list_of_KPIs ?? "",
+    list_of_branding_strategies: location?.state?.list_of_branding_strategies ?? "",
+    event_budget: location?.state?.event_budget ?? "",
+    event_sponsership_level: location?.state?.event_sponsership_level ?? "",
     budgetAllocations: location?.state?.budgetAllocations ?? [],
   };
 
   const dispatch = useDispatch();
   const [eventFormData, setEventFormData] = useState(initialValues);
 
-  // Sync the form with the state (eventFormData) when the component mounts or state changes
   useEffect(() => {
-    form.setFieldsValue(eventFormData); // Set form fields when eventFormData changes
+    form.setFieldsValue(eventFormData);
   }, [eventFormData, form]);
 
   const handleInputChange = (key, value) => {
     setEventFormData((prevData) => ({
       ...prevData,
-      [key]: value, // Dynamically update the field
+      [key]: value,
     }));
   };
 
   const handleCreate = () => {
     const eventDataToSend = {
-      [eventFormData?.eventName]: {
-        ...eventFormData, // Send all form data
+      [eventFormData?.event_name]: {
+        ...eventFormData,
       },
     };
 
@@ -70,9 +67,8 @@ const AddEvent = () => {
     dispatch(setNewEventSlice(eventDataToSend));
     navigate("/events");
 
-    // Reset the form data
-    setEventFormData(initialValues); // Reset with initial values
-    form.resetFields(); // Reset the form fields
+    setEventFormData(initialValues);
+    form.resetFields();
   };
 
   const { TextArea } = Input;
@@ -102,14 +98,10 @@ const AddEvent = () => {
       <div className="rounded-xl bg-white shadow-lg flex flex-col gap-12 p-6">
         <ConfigProvider theme={purpleTheme}>
           <Form
-            form={form} // Associate the form instance
-            initialValues={initialValues} // Use initialValues in Ant Design form
+            form={form}
+            initialValues={initialValues}
             layout="vertical"
           >
-            {/* <EventOverviewForm
-              formData={eventFormData}
-              onInputChange={handleInputChange}
-            /> */}
             <div className="w-full mx-auto bg-white rounded-xl flex">
               <div className="w-1/2 flex flex-col ">
                 <h2 className="text-2xl font-light font-lora my-6 border-b border-purple-90">
@@ -119,7 +111,7 @@ const AddEvent = () => {
                 <div className="grid grid-cols-1 w-full ">
                   <div className="w-full  px-2 ">
                     <Form.Item
-                      name="eventName"
+                      name="event_name"
                       label="Event Name"
                       rules={[
                         {
@@ -131,16 +123,16 @@ const AddEvent = () => {
                       <Input
                         placeholder="Event Name"
                         className="w-full !rounded-2xl h-[48px]"
-                        value={eventFormData.eventName}
+                        value={eventFormData.event_name}
                         onChange={(e) =>
-                          handleInputChange("eventName", e.target.value)
+                          handleInputChange("event_name", e.target.value)
                         }
                       />
                     </Form.Item>
                   </div>
                   <div className="w-full  px-2 ">
                     <Form.Item
-                      name="eventDate"
+                      name="event_date"
                       label="Event Date"
                       rules={[
                         {
@@ -150,13 +142,13 @@ const AddEvent = () => {
                       ]}
                     >
                       <DatePicker
-                        value={eventFormData.eventDate}
+                        value={eventFormData.event_date}
                         onChange={(date, dateString) => {
                           console.log(moment(dateString).locale("es"), "sdsds");
                           console.log(moment(dateString), "without sdsds");
 
                           handleInputChange(
-                            "eventDate",
+                            "event_date",
                             moment(dateString)
                           );
                         }}
@@ -166,7 +158,7 @@ const AddEvent = () => {
                   </div>
                   <div className="w-full  px-2 ">
                     <Form.Item
-                      name="eventPageUrl"
+                      name="event_url"
                       label="Event Page URL"
                       rules={[
                         {
@@ -178,16 +170,16 @@ const AddEvent = () => {
                       <Input
                         placeholder="Event URL"
                         className="w-full !rounded-2xl h-[48px]"
-                        value={eventFormData.eventUrl}
+                        value={eventFormData.event_url}
                         onChange={(e) =>
-                          handleInputChange("eventUrl", e.target.value)
+                          handleInputChange("event_url", e.target.value)
                         }
                       />
                     </Form.Item>
                   </div>
                   <div className="w-full  px-2 ">
                     <Form.Item
-                      name="employeesAttending"
+                      name="event_employee_count"
                       label="# Employees Attending"
                       rules={[
                         {
@@ -200,10 +192,10 @@ const AddEvent = () => {
                       <Input
                         placeholder="Attending employees"
                         className="w-full !rounded-2xl h-[48px]"
-                        value={eventFormData.attendingEmployees}
+                        value={eventFormData.event_employee_count}
                         onChange={(e) =>
                           handleInputChange(
-                            "attendingEmployees",
+                            "event_employee_count",
                             e.target.value
                           )
                         }
@@ -233,9 +225,9 @@ const AddEvent = () => {
                   extra="e.g., developers, startups, investors, marketing professionals"
                 >
                   <TextArea
-                    value={eventFormData.attendeeRoles}
+                    value={eventFormData.target_roles}
                     onChange={(e) =>
-                      handleInputChange("attendeeRoles", e.target.value)
+                      handleInputChange("target_roles", e.target.value)
                     }
                     rows={2}
                     style={textAreaStyle}
@@ -247,9 +239,9 @@ const AddEvent = () => {
                   extra="e.g., age, profession, location, company size"
                 >
                   <TextArea
-                    value={eventFormData.demographicSpecs}
+                    value={eventFormData.target_demographics}
                     onChange={(e) =>
-                      handleInputChange("demographicSpecs", e.target.value)
+                      handleInputChange("target_demographics", e.target.value)
                     }
                     rows={2}
                     style={textAreaStyle}
@@ -261,9 +253,9 @@ const AddEvent = () => {
                   extra="e.g., networking sessions, one-on-one meetings, workshops"
                 >
                   <TextArea
-                    value={eventFormData.engagementTactics}
+                    value={eventFormData.target_engagement_tactics}
                     onChange={(e) =>
-                      handleInputChange("engagementTactics", e.target.value)
+                      handleInputChange("target_engagement_tactics", e.target.value)
                     }
                     rows={2}
                     style={textAreaStyle}
@@ -275,9 +267,9 @@ const AddEvent = () => {
                   extra="e.g., top leads, potential partners, decision-makers, fundraising connections"
                 >
                   <TextArea
-                    value={eventFormData.targetSegments}
+                    value={eventFormData.target_segment_type}
                     onChange={(e) =>
-                      handleInputChange("targetSegments", e.target.value)
+                      handleInputChange("target_segment_type", e.target.value)
                     }
                     rows={2}
                     style={textAreaStyle}

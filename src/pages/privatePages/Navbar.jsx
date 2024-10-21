@@ -53,7 +53,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="flex justify-between items-center drop-shadow-md w-[100%] max-h-[10vh] p-4 bg-white ">
+    <div className="flex justify-between items-center border-b-2 border-secondary w-[100%] max-h-[10vh] p-4 bg-primary_light ">
       <Image
         src={LogoIcon}
         alt="logo"
@@ -140,6 +140,8 @@ const Navbar = () => {
           visible={logoutModal}
           onCancel={() => setLogoutModal(false)}
           onOk={() => handleSignOut()}
+          okButtonProps={{ className: 'bg-primary hover:!bg-primary_light hover:!border-primary  hover:!text-primary !important' }}
+          cancelButtonProps={{ className: 'border hover:!border-primary  hover:!text-primary !important' }}
         >
           <p>Are you sure you want to log out?</p>
         </Modal>

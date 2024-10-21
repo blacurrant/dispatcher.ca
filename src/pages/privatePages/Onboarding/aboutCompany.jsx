@@ -1,16 +1,26 @@
 import React, { useState } from "react";
-import { Form, Input, Button, Select, Progress, Dropdown } from "antd";
+import { Form, Input, Button, Select, Progress } from "antd";
 import { ArrowLeftOutlined, ArrowRightOutlined } from "@ant-design/icons";
 import Title from "antd/es/typography/Title";
+import { useDispatch } from "react-redux";
+import { setOnboardingInfo } from "../../../store/slices/currentUserSlice";
+import PropTypes from 'prop-types';
 
 export default function CompanyInfoForm({ setFormTab }) {
+  CompanyInfoForm.propTypes = {
+    setFormTab: PropTypes.func.isRequired,
+  };
+
   const [form] = Form.useForm();
   const [selectedCompanyType, setSelectedCompanyType] = useState(null);
 
+  const dispatch = useDispatch();
 
   const onFinish = (values) => {
+    dispatch(setOnboardingInfo({...values, company_type: selectedCompanyType}));
     setFormTab(4);
     console.log("Form values:", values);
+    
   };
 
   const companyType = [
@@ -20,25 +30,6 @@ export default function CompanyInfoForm({ setFormTab }) {
     "Consumer Tech / E- Commerce",
     "Marketing Agency",
     "Other",
-  ];
-
-  const companyName = [
-    {
-      key: 1,
-      value: "Company 1",
-    },
-    {
-      key: 2,
-      value: "Company 2",
-    },
-    {
-      key: 3,
-      value: "Company 3",
-    },
-    {
-      key: 4,
-      value: "Company 4",
-    },
   ];
 
   const companySize = [
@@ -61,11 +52,11 @@ export default function CompanyInfoForm({ setFormTab }) {
     {
       key: 5,
       value: "More than 200",
-    }
-  ]
+    },
+  ];
 
   return (
-    <div className="w-[600px] mx-auto p-6 bg-gray-50 rounded-lg">
+    <div className="w-[600px] mx-auto p-6 shadow-lg rounded-lg">
       <Progress
         percent={50}
         showInfo={false}
@@ -73,14 +64,15 @@ export default function CompanyInfoForm({ setFormTab }) {
         trailColor="#ECE6F0"
       />
 
-<div className="py-8">
-
-      <Title className="!text-xl !font-bold mb-2">Tell Us About Your Company</Title>
-      <p className="text-sm font-lora text-gray-400 mb-6">
-        By details this will be used to Personalize your dashboard. You can
-        adjust these settings later or change them later from your profile.
-      </p>
-</div>
+      <div className="py-8">
+        <Title className="!text-xl !font-bold mb-2">
+          Tell Us About Your Company
+        </Title>
+        <p className="text-sm font-lora text-gray-400 mb-6">
+          By details this will be used to Personalize your dashboard. You can
+          adjust these settings later or change them later from your profile.
+        </p>
+      </div>
 
       <Form
         form={form}
@@ -92,28 +84,28 @@ export default function CompanyInfoForm({ setFormTab }) {
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
-              name="companyName"
+              name="company_name"
               label="Company Name"
               // rules={[{ required: true, message: 'Required' }]}
             >
-              <Select
-                options={companyName}
-                className="h-[48px] !rounded-2xl border-gray-300"
-              />
+              <Input className="h-[48px] !rounded-2xl border-gray-300" />
             </Form.Item>
 
             <Form.Item
-              name="companySize"
+              name="company_size"
               label="Company Size"
               // rules={[{ required: true, message: 'Required' }]}
             >
-              <Select options={companySize} className="h-[48px] !rounded-2xl border-gray-300" />
+              <Select
+                options={companySize}
+                className="h-[48px] !rounded-2xl border-gray-300"
+              />
             </Form.Item>
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <Form.Item
-              name="websiteLink"
+              name="company_website"
               label="Website Link"
               // rules={[{ required: true, message: 'Required' }]}
             >
@@ -121,30 +113,30 @@ export default function CompanyInfoForm({ setFormTab }) {
             </Form.Item>
 
             <Form.Item
-              name="companyLocation"
+              name="company_location"
               label="Company Location"
               // rules={[{ required: true, message: 'Required' }]}
             >
-              <Select options={companyName} className="h-[48px] !rounded-2xl border-gray-300" />
+              <Input className="h-[48px] !rounded-2xl border-gray-300" />
             </Form.Item>
           </div>
 
           <Form.Item name="companyType" label="Type of Company">
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
-            {companyType.map((role) => (
-              <Button
-                key={role}
-                className={`text-left px-3 py-2 h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary ${
-                  selectedCompanyType == role
-                    ? "!bg-primary !text-white !"
-                    : "bg-white text-gray-700 border-gray-300"
-                }`}
-                onClick={() => setSelectedCompanyType(role)}
-              >
-                {role}
-              </Button>
-            ))}
-          </div>
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+              {companyType.map((role) => (
+                <Button
+                  key={role}
+                  className={`text-left px-3 py-2 h-[48px] rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary ${
+                    selectedCompanyType == role
+                      ? "!bg-primary !text-white !"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  onClick={() => setSelectedCompanyType(role)}
+                >
+                  {role}
+                </Button>
+              ))}
+            </div>
           </Form.Item>
         </div>
 
@@ -153,7 +145,7 @@ export default function CompanyInfoForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(2)}
-              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border border-primary rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back

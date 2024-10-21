@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Select, Card, Button, Divider } from "antd";
+import { Tabs, Select, Card, Button, Divider, Tooltip } from "antd";
 import {
   RightOutlined,
   CalendarOutlined,
@@ -8,7 +8,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { EmptyEvents } from "../../../utils/Illustrations";
-import { setNewEventSlice } from "../../../store/slices/newEventSlice";
+// import { setNewEventSlice } from "../../store/slices/newEventSlice";
+import webSummit from "../../../assets/web-summit.png";
 import moment from "moment";
 
 const { TabPane } = Tabs;
@@ -18,10 +19,20 @@ export default function MyEvents() {
   const [activeTab, setActiveTab] = useState("upcoming");
 
   const navigate = useNavigate();
-  const events = useSelector((state) => state?.newEventSlice?.data);
+  // const events = useSelector((state) => state?.newEventSlice?.data);
   const dispatch = useDispatch();
 
-  console.log(events, "events");
+  // console.log(events, "events");
+
+  const events = [
+    {
+      id: 1,
+      eventName: "Web Summit 2024",
+      eventDate: "2024-11-11",
+      dateRange: "Fri, 11 Jan 2024 - Sat, 15 Jan 2024",
+      image: webSummit,
+    },
+  ];
 
   const renderTrip = (event, index) => (
     <div key={event.id} className="w-full p-4 h-[200px]">
@@ -49,15 +60,15 @@ export default function MyEvents() {
         </div>
         <div className="md:w-3/4 flex flex-col md:flex-row gap-4">
           <img
-            src="/"
+            src={event.image}
             alt="event name"
-            className="w-1/3 h-full object-cover rounded-lg border border-primary"
+            className="w-1/3 h-full object-contain p-4 shadow-inner rounded-lg border border-primary"
           />
           <div className="md:w-2/3 pr-4 flex flex-col gap-2 justify-center">
             <h3 className="text-xl font-semibold ">{event.eventName}</h3>
             <p className="text-gray-500 ">
               <CalendarOutlined className="mr-2" />
-              Fri, 11 Jan 2024 - Sat, 15 Jan 2024
+              Fri, 11 Nov 2024 - Sat, 15 Nov 2024
             </p>
             {/* <h4 className="text-lg font-semibold ">{event.hotelName}</h4> */}
             <p className="text-gray-600 ">
@@ -70,20 +81,23 @@ export default function MyEvents() {
               type="default"
               className=" w-full flex items-center justify-center rounded-xl bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
               icon={<RightOutlined />}
-              onClick={() => navigate("/analytics")}
-            >
-              Analytics
-            </Button>
-            <Button
-              type="default"
-              className=" w-full flex items-center justify-center rounded-xl bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
-              icon={<RightOutlined />}
               onClick={() =>
                 navigate(`/events/${event.eventName}`, { state: event })
               }
             >
-              Edit Details
+              Set Goals
             </Button>
+            <Tooltip title="Set goals to see analytics">
+              <Button
+                disabled={true}
+                type="default"
+                className=" w-full flex items-center justify-center rounded-xl bg-primary text-white border"
+                icon={<RightOutlined />}
+                onClick={() => navigate("/analytics")}
+              >
+                Analytics
+              </Button>
+            </Tooltip>
           </div>
         </div>
       </div>
@@ -91,14 +105,15 @@ export default function MyEvents() {
   );
 
   return (
-    <div className="w-full max-h-[90vh] mx-auto p-6 bg-purple-50 overflow-auto">
+    <div className="w-full max-h-[90vh] mx-auto p-6 bg-white overflow-auto">
       <div className="w-full flex justify-between items-center pb-6">
-        <h1 className="text-3xl font-light">My Events</h1>
+        <h1 className="text-3xl font-light">My Sponsored Events</h1>
         <Button
+          disabled={true}
           size="large"
           type="primary"
           icon={<PlusOutlined />}
-          className="w-fit bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl px-12"
+          className="w-fit bg-primary border rounded-2xl px-12"
           onClick={() => navigate("/addEvent")}
         >
           Add New Event
@@ -111,7 +126,7 @@ export default function MyEvents() {
       >
         <TabPane
           className="h-full bg-white rounded-xl flex flex-col gap-5"
-          tab="Upcoming Events"
+          tab={<span className="text-primary">Upcoming Events</span>}
           key="upcoming"
         >
           {Object.values(events).length > 0 ? (
@@ -123,8 +138,15 @@ export default function MyEvents() {
             </div>
           )}
         </TabPane>
-        <TabPane className="flex flex-col gap-5" tab="Past Events" key="past">
-          {Object.values(events)?.map(renderTrip)}
+        <TabPane 
+          className="flex flex-col gap-5" 
+          tab={<span className="text-primary">Past Events</span>} 
+          key="past"
+        >
+          <div className="flex w-full h-full items-center justify-center flex-col">
+            <EmptyEvents />
+            <p className="text-lg font-light ">No Past Events!</p>
+          </div>
         </TabPane>
       </Tabs>
     </div>
