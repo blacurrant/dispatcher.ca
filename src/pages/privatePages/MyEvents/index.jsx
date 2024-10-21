@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Tabs, Select, Card, Button, Divider, Tooltip } from "antd";
+import { Tabs, Select, Card, Button, Divider, Tooltip, ConfigProvider } from "antd";
 import {
   RightOutlined,
   CalendarOutlined,
@@ -21,6 +21,15 @@ export default function MyEvents() {
   const navigate = useNavigate();
   // const events = useSelector((state) => state?.newEventSlice?.data);
   const dispatch = useDispatch();
+
+  const purpleTheme = {
+    token: {
+      colorPrimary: "#800080",
+      colorLink: "#800080",
+      colorLinkHover: "#a020f0",
+      borderRadius: 16,
+    },
+  };
 
   // console.log(events, "events");
 
@@ -119,8 +128,9 @@ export default function MyEvents() {
           Add New Event
         </Button>{" "}
       </div>
-      <Tabs
-        activeKey={activeTab}
+      <ConfigProvider theme={purpleTheme}>
+        <Tabs
+          activeKey={activeTab}
         onChange={setActiveTab}
         className="custom-tabs h-full"
       >
@@ -147,8 +157,9 @@ export default function MyEvents() {
             <EmptyEvents />
             <p className="text-lg font-light ">No Past Events!</p>
           </div>
-        </TabPane>
-      </Tabs>
+          </TabPane>
+        </Tabs>
+      </ConfigProvider>
     </div>
   );
 }
