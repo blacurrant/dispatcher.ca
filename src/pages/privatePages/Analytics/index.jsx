@@ -2,14 +2,16 @@ import React from "react";
 import AttendeeDashboard from "../../../components/AttendeesBreakdown";
 import PeopleAccordion from "./LeadInfo";
 import { Card, Divider, Typography } from "antd";
+import Partners from "./Partners";
 
 const { Title, Text } = Typography;
 
 const Analytics = () => {
   return (
-    <div className="w-[100%] h-[90vh] bg-purple-50 overflow-auto">
+    <div className="w-[100%] h-[90vh] bg-white overflow-auto">
       <AttendeeDashboard />
-      <div className=" w-full px-6 space-y-2">
+
+      {/* <div className=" w-full px-6 space-y-2">
         <div>
           <Text className="text-gray-600">Goal Breakdown: For </Text>
           <Text strong className="text-lg italic">
@@ -56,10 +58,12 @@ const Analytics = () => {
             <p className="text-3xl font-semibold text-primary m-0">5</p>
           </div>
         </div>
-      </div>
+      </div> */}
       <div className="flex w-full h-fit justify-between p-4 gap-4">
-        <PeopleAccordion />
-        <PeopleAccordion />
+        {/* <div className="w-full h-fit overflow-auto"> */}
+          <PeopleAccordion />
+        {/* </div> */}
+        {/* <Partners /> */}
       </div>
     </div>
   );

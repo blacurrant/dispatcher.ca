@@ -1,39 +1,11 @@
 import React from 'react';
-import { Form, Input, Select, InputNumber } from 'antd';
-
-const { Option } = Select;
-
-const budgetCategories = [
-  'Booth Setup',
-  'Swag',
-  'Marketing',
-  'Travel',
-  'Promotional Materials',
-  'Other'
-];
+import { Form, Input, InputNumber } from 'antd';
 
 export default function BudgetSponsorshipForm({ formData, onInputChange }) {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
     console.log('Form values:', values);
-  };
-
-  const handleBudgetChange = (category, value) => {
-    // Create or update the budget allocation for the given category
-    const updatedBudget = formData?.budgetAllocations || [];
-    const index = updatedBudget.findIndex(item => item.category === category);
-    
-    if (index > -1) {
-      // Update existing category
-      updatedBudget[index].amount = value;
-    } else {
-      // Add new category
-      updatedBudget.push({ category, amount: value });
-    }
-
-    // Update formData using onInputChange
-    onInputChange("budgetAllocations", updatedBudget);
   };
 
   return (
@@ -46,38 +18,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
         layout="vertical"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-          <Form.Item
-            name="eventBudget"
-            label="Event Budget"
-            rules={[{ required: true, message: 'Please input the event budget!' }]}
-          >
-            <InputNumber
-              value={formData?.eventBudget}
-              onChange={(value) => onInputChange("eventBudget", value)}
-              className="w-full h-12 !rounded-2xl"
-              placeholder="Enter budget in dollars"
-              min={0}
-              formatter={(value) => `$${value}`}
-              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
-            />
-          </Form.Item>
-
-          <Form.Item
-            name="sponsorshipLevel"
-            label="Sponsorship Level"
-            rules={[{ required: true, message: 'Please input the sponsorship level!' }]}
-          >
-            <Input
-              value={formData?.sponsorLevel}
-              onChange={(e) => onInputChange("sponsorLevel", e.target.value)}
-              className="w-full h-12 !rounded-2xl"
-            />
-          </Form.Item>
-        </div>
-
-        <h3 className="text-sm font-normal">Allocation of Event Budget</h3>
-        <div className="grid grid-cols-4 gap-6">
-          <Form.Item
+        <Form.Item
             name="average_customer_value"
             label="Average Customer Value"
             rules={[{ required: true, message: 'Please input the average customer value!' }]}
@@ -88,7 +29,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.average_customer_value}
-              onChange={(value) => handleBudgetChange('average_customer_value', value)}
+              onChange={(value) => onInputChange('average_customer_value', value)}
             />
           </Form.Item>
           <Form.Item
@@ -102,9 +43,41 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.average_ticket_size}
-              onChange={(value) => handleBudgetChange('average_ticket_size', value)}
+              onChange={(value) => onInputChange('average_ticket_size', value)}
             />
           </Form.Item>
+          <Form.Item
+            name="event_budget"
+            label="Event Budget"
+            rules={[{ required: true, message: 'Please input the event budget!' }]}
+          >
+            <InputNumber
+              value={formData?.event_budget}
+              onChange={(value) => onInputChange("event_budget", value)}
+              className="w-full h-12 !rounded-2xl"
+              placeholder="Enter budget in dollars"
+              min={0}
+              formatter={(value) => `$${value}`}
+              parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
+            />
+          </Form.Item>
+
+          <Form.Item
+            name="event_sponsership_level"
+            label="Sponsorship Level"
+            rules={[{ required: true, message: 'Please input the sponsorship level!' }]}
+          >
+            <Input
+              value={formData?.event_sponsership_level}
+              onChange={(e) => onInputChange("event_sponsership_level", e.target.value)}
+              className="w-full h-12 !rounded-2xl"
+            />
+          </Form.Item>
+        </div>
+
+        <h3 className="text-sm font-normal">Allocation of Event Budget</h3>
+        <div className="grid grid-cols-5 gap-6">
+          
           <Form.Item
             name="booth_setup_budget"
             label="Booth Setup Budget"
@@ -116,7 +89,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.booth_setup_budget}
-              onChange={(value) => handleBudgetChange('booth_setup_budget', value)}
+              onChange={(value) => onInputChange('booth_setup_budget', value)}
             />
           </Form.Item>
           <Form.Item
@@ -130,7 +103,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.travel_budget}
-              onChange={(value) => handleBudgetChange('travel_budget', value)}
+              onChange={(value) => onInputChange('travel_budget', value)}
             />
           </Form.Item>
           <Form.Item
@@ -144,7 +117,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.sponsership_budget}
-              onChange={(value) => handleBudgetChange('sponsership_budget', value)}
+              onChange={(value) => onInputChange('sponsership_budget', value)}
             />
           </Form.Item>
           <Form.Item
@@ -158,7 +131,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.promotional_budget}
-              onChange={(value) => handleBudgetChange('promotional_budget', value)}
+              onChange={(value) => onInputChange('promotional_budget', value)}
             />
           </Form.Item>
           <Form.Item
@@ -172,7 +145,7 @@ export default function BudgetSponsorshipForm({ formData, onInputChange }) {
               formatter={(value) => `$ ${value}`.replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               parser={(value) => value.replace(/\$\s?|(,*)/g, '')}
               value={formData?.misc_budget}
-              onChange={(value) => handleBudgetChange('misc_budget', value)}
+              onChange={(value) => onInputChange('misc_budget', value)}
             />
           </Form.Item>
         </div>

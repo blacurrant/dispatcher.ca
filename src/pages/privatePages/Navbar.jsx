@@ -4,11 +4,11 @@ import { FaBars, FaUser } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import LogoIcon from "../../assets/LogoIcon.png";
 import { auth } from "../../firebase/firebase";
-import { Divider, Dropdown, Image, Modal, Select } from "antd";
+import { Button, Divider, Dropdown, Image, Modal, Select } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { signOut } from "firebase/auth";
 import { completedOnboarding, setCurrentUserSlice } from "../../store/slices/currentUserSlice";
-import { CaretDownOutlined, BellFilled } from "@ant-design/icons";
+import { CaretDownOutlined, BellFilled, ExclamationCircleOutlined } from "@ant-design/icons";
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -22,13 +22,13 @@ const Navbar = () => {
   const userInfo = useSelector((state) => state?.currentUserSlice?.userInfo);
 
   const items = [
-    {
-      label: <a>Profile</a>,
-      key: "0",
-    },
-    {
-      type: "divider",
-    },
+    // {
+    //   label: <a>Profile</a>,
+    //   key: "0",
+    // },
+    // {
+    //   type: "divider",
+    // },
     {
       label: <a onClick={() => setLogoutModal(true)}>Logout</a>,
       key: "1",
@@ -102,29 +102,33 @@ const Navbar = () => {
       )} */}
       {/* {isMobileMenuOpen && ( */}
       <div className=" flex items-center gap-3">
-        <Dropdown menu={{ items }} trigger={["click"]}>
+        <Dropdown
+          menu={{ items }}
+          trigger={["click"]}
+          overlayClassName="custom-dropdown"
+          dropdownRender={(menu) => (
+            <div className="bg-white rounded-lg shadow-lg w-64">
+              {React.cloneElement(menu, {
+                className: "py-2",
+              })}
+            </div>
+          )}
+        >
           <div
             onClick={() => setDropDown(true)}
-            className={` flex gap-2 justify-start items-center rounded-3xl p-2 cursor-pointer bg-purple-100`}
+            className="flex items-center gap-3 rounded-full py-2 px-4 cursor-pointer bg-purple-100 hover:bg-purple-200 transition-colors duration-200"
           >
             {userInfo && (
               <>
-                {/* {userInfo?.photoURL ? (
-                  <Image
-                    width={30}
-                    height={30}
-                    className="rounded-full"
-                    src={userInfo?.photoURL}
-                    alt=" "
-                    preview={false}
-                  />
-                ) : ( */}
-                <div className="w-8 h-8 rounded-full bg-primary text-white flex justify-center items-center">
+                <div className="w-10 h-10 rounded-full bg-primary text-white flex justify-center items-center text-lg font-semibold">
                   {userInfo?.displayName[0].toUpperCase()}
                 </div>
-                {/* )} */}
-                <p className="text-black">{userInfo?.displayName}</p>
-                <CaretDownOutlined />
+                <div className="flex-grow">
+                  <p className="text-black font-medium truncate max-w-[120px]">
+                    {userInfo?.displayName}
+                  </p>
+                </div>
+                <CaretDownOutlined className="text-gray-600" />
               </>
             )}
           </div>
@@ -139,11 +143,31 @@ const Navbar = () => {
         <Modal
           visible={logoutModal}
           onCancel={() => setLogoutModal(false)}
-          onOk={() => handleSignOut()}
-          okButtonProps={{ className: 'bg-primary hover:!bg-primary_light hover:!border-primary  hover:!text-primary !important' }}
-          cancelButtonProps={{ className: 'border hover:!border-primary  hover:!text-primary !important' }}
+          footer={null}
+          centered
+          width={400}
         >
-          <p>Are you sure you want to log out?</p>
+          <div className="flex flex-col items-center p-6">
+            <ExclamationCircleOutlined className="text-5xl text-primary mb-4" />
+            <h2 className="text-2xl font-semibold mb-4">Confirm Logout</h2>
+            <p className="text-gray-600 mb-6">Are you sure you want to log out?</p>
+            <div className="flex justify-center gap-4">
+              <Button
+                onClick={() => setLogoutModal(false)}
+                className="w-32 h-10 !rounded-full border-gray-300 !bg-primary_light hover:!border-primary hover:!text-primary"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => handleSignOut()}
+                type="primary"
+                danger
+                className="w-32 h-10 !rounded-full"
+              >
+                Log Out
+              </Button>
+            </div>
+          </div>
         </Modal>
       )}
     </div>

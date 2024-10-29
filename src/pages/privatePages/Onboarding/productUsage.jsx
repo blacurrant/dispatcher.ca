@@ -75,12 +75,12 @@ export default function ProductUsageForm({
 
   return (
     <div className="w-[600px] mx-auto p-6 shadow-lg rounded-3xl">
-      <Progress
-        percent={75}
-        showInfo={false}
-        strokeColor="#723D9E"
-        trailColor="#ECE6F0"
-      />
+      <div className="flex justify-between mb-4 gap-1">
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+      </div>
 
       <div className="py-6">
         <Title className="!text-xl !font-bold">
@@ -101,29 +101,28 @@ export default function ProductUsageForm({
               <Button
                 key={option.label}
                 className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl hover:!bg-hover hover:!text-primary hover:!border-primary border ${
-                  selectedBusiness && selectedBusiness.includes(option.label)
+                  selectedBusiness.includes(option.label)
                     ? "!bg-primary text-white border-primary "
                     : "bg-white text-gray-500 border-gray-300 hover:border-primary"
                 }`}
                 onClick={() => {
-                  setSelectedBusiness(prevSelected => {
-                    if (!prevSelected) return [option.label];
-                    return prevSelected.includes(option.label)
+                  setSelectedBusiness(prevSelected => 
+                    prevSelected.includes(option.label)
                       ? prevSelected.filter(item => item !== option.label)
-                      : [...prevSelected, option.label];
-                  });
+                      : [...prevSelected, option.label]
+                  );
                 }}
               >
                 <p
                   className={`text-sm ${
-                    selectedBusiness && selectedBusiness.includes(option.label)
+                    selectedBusiness.includes(option.label)
                       ? "stroke-current text-white" // Active state stroke color
                       : "stroke-current text-gray-500" // Inactive state stroke color
                   }`}
                 >
                   {option.icon}
                 </p>
-                <p className="w-fit  text-sm">{option.label}</p>
+                <p className="w-fit text-sm">{option.label}</p>
               </Button>
             ))}
           </div>
@@ -163,7 +162,7 @@ export default function ProductUsageForm({
             <Button
               type="primary"
               onClick={() => setFormTab(3)}
-              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back

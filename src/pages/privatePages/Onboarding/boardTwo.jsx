@@ -38,12 +38,12 @@ export default function UserProfileForm({ setFormTab }) {
     // <div className='w-full h-full'>
 
     <div className="w-[600px] h-full mx-auto p-6 shadow-lg rounded-3xl">
-      <Progress
-        percent={25}
-        showInfo={false}
-        strokeColor="#723D9E"
-        trailColor="#ECE6F0"
-      />
+      <div className="flex justify-between mb-4 gap-1">
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+      </div>
       <div className="py-8">
 
       <Title level={2} className=" mb-2 !text-xl !font-bold">
@@ -106,7 +106,7 @@ export default function UserProfileForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(1)}
-              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back 

@@ -20,15 +20,21 @@ const businessOptions = [
   { icon: <MoreIcon />, label: "Other" },
 ];
 
-export default function CompanyGoals({ formData, onInputChange }) {
+export default function CompanyGoals({ formData, onInputChange, setEventFormData }) {
+
+  console.log(formData, "===========haha=========");
+  
   // Function to toggle selected options
   const toggleBusinessSelection = (label) => {
-    const currentGoals = formData.company_goals ? formData.company_goals.split(", ") : [];
+    const currentGoals = formData.company_goals ? formData.company_goals.split(",") : [];
     const updatedGoals = currentGoals.includes(label)
       ? currentGoals.filter((item) => item !== label)
       : [...currentGoals, label];
     
-    onInputChange("company_goals", updatedGoals.join(", "));
+    setEventFormData(prevData => ({
+      ...prevData,
+      company_goals: updatedGoals.join(",")
+    }));
   };
 
   const textAreaStyle = {
@@ -42,28 +48,33 @@ export default function CompanyGoals({ formData, onInputChange }) {
       </p>
       <Form.Item>
         <div className="grid grid-cols-1 md:grid-cols-6 gap-4">
-          {businessOptions.map((option) => (
-            <Button
-              key={option.label}
-              className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl ${
-                formData.company_goals && formData.company_goals.includes(option.label)
-                  ? "!bg-primary text-white border-primary"
-                  : "bg-white text-gray-500 border-gray-300 hover:border-primary"
-              }`}
-              onClick={() => toggleBusinessSelection(option.label)}
-            >
-              <p
-                className={`text-sm ${
-                  formData.company_goals && formData.company_goals.includes(option.label)
-                    ? "stroke-current text-white"
-                    : "stroke-current text-gray-500"
+          {businessOptions.map((option) => {
+            console.log(formData.company_goals, "asdasdasd")
+            
+            const companyGoalsArray = formData.company_goals ? formData.company_goals : [];
+            return (
+              <Button
+                key={option.label}
+                className={`h-24 w-full text-wrap text-center flex flex-col items-center justify-center rounded-2xl ${
+                  companyGoalsArray.includes(option.label)
+                    ? "!bg-primary text-white border-primary"
+                    : "bg-white text-gray-500 border-gray-300 hover:border-primary"
                 }`}
+                onClick={() => toggleBusinessSelection(option.label)}
               >
-                {option.icon}
-              </p>
-              <p className="w-fit text-sm">{option.label}</p>
-            </Button>
-          ))}
+                <p
+                  className={`text-sm ${
+                    companyGoalsArray.includes(option.label)
+                      ? "stroke-current text-white"
+                      : "stroke-current text-gray-500"
+                  }`}
+                >
+                  {option.icon}
+                </p>
+                <p className="w-fit text-sm">{option.label}</p>
+              </Button>
+            );
+          })}
         </div>
       </Form.Item>
       <div className="grid grid-cols-2 gap-6">

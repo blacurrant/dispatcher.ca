@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Linkedin } from 'lucide-react'
+import { CaretRightOutlined } from "@ant-design/icons";
+
+import { Breadcrumb, Collapse } from 'antd'
+
+const { Panel } = Collapse;
 
 // Mock data
 const attendees = [
@@ -48,37 +53,75 @@ const attendees = [
     name: "Jessica Gates",
     title: "DevOps Manager",
     company: "Affirm"
+  },
+  {
+    name: "John Doe",
+    title: "Software Engineer",
+    company: "Acme Corp"
+  },
+  {
+    name: "Jane Doe",
+    title: "Product Designer",
+    company: "Acme Corp"
+  },
+  {
+    name: "Jack Smith",
+    title: "Marketing Manager",
+    company: "Acme Corp"
+  },
+  {
+    name: "Jill Smith",
+    title: "HR Manager",
+    company: "Acme Corp"
   }
 ]
 
 export default function Component() {
   const [expandedIndex, setExpandedIndex] = useState(null)
   const [currentPage, setCurrentPage] = useState(1)
-  const totalPages = Math.ceil(attendees.length / 5)
+  const [visibleAttendees, setVisibleAttendees] = useState(attendees.slice(0, 8)) // Assuming 8 attendees per page
+
+  const totalPages = Math.ceil(attendees.length / 8)
 
   const toggleExpand = (index) => {
     setExpandedIndex(expandedIndex === index ? null : index)
   }
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage)
+    setVisibleAttendees(attendees.slice((newPage - 1) * 8, newPage * 8))
+  }
+
   return (
-    <div className="h-[90vh] w-full bg-gray-100  overflow-auto">
-      <div className="w-full h-full mx-auto bg-white">
+    <div className="h-[90vh] w-full bg-white  overflow-auto py-4">
+      <Breadcrumb
+        className="!text-black px-6 cursor-pointer"
+        items={[
+          {
+            title: "Analytics",
+            href: "/analytics",
+          },
+          {
+            title: "Detailed analytics",
+          },
+        ]}
+      />      <div className="w-full h-full mx-auto bg-white">
         <div className="p-6">
-          <h2 className="text-3xl font-light mb-4">Attendees Expected that match your goal and target audience</h2>
+          <h2 className="text-3xl font-light mb-4">Attendees that match your goal and target audience</h2>
           <div className="flex justify-between items-center mb-4">
             <span className="text-sm text-gray-500">
               {currentPage} - {totalPages} pages
             </span>
             <div className="flex space-x-2">
               <button
-                onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}
+                onClick={() => handlePageChange(Math.max(1, currentPage - 1))}
                 className="p-1 rounded-full hover:!bg-hover hover:!text-primary hover:!border-primary border"
                 disabled={currentPage === 1}
               >
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
-                onClick={() => setCurrentPage(Math.min(totalPages, currentPage + 1))}
+                onClick={() => handlePageChange(Math.min(totalPages, currentPage + 1))}
                 className="p-1 rounded-full hover:!bg-hover hover:!text-primary hover:!border-primary border"
                 disabled={currentPage === totalPages}
               >
@@ -86,35 +129,61 @@ export default function Component() {
               </button>
             </div>
           </div>
-          {attendees.map((attendee, index) => (
-            <div key={index} className="bg-opacity-5 bg-primary border border-primary border-opacity-10 rounded-xl my-2">
-              <div
-                className="py-4 px-2 flex justify-between items-center cursor-pointer "
-                onClick={() => toggleExpand(index)}
-              >
-                <div>
-                  <h3 className="font-semibold">{attendee.name} | {attendee.title} @{attendee.company}</h3>
-                </div>
-                {expandedIndex === index ? <ChevronUp className="w-5 h-5" /> : <ChevronDown className="w-5 h-5" />}
-              </div>
-              {expandedIndex === index && (
-                <div className="px-2 pb-4">
-                  <p className="text-sm text-gray-600 mb-2">{attendee.opportunity}</p>
-                  <div className="flex items-center space-x-4 text-sm">
-                    <a href={attendee.linkedin} className="text-blue-600 hover:underline">LinkedIn</a>
-                    <a href={attendee.website} className="text-blue-600 hover:underline">Website</a>
-                    <span>Company Size: {attendee.companySize}</span>
-                  </div>
-                  <div className="mt-2">
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800">
-                      <Linkedin className="w-4 h-4 mr-1" />
-                      LinkedIn
+          <Collapse
+            bordered={false}
+            expandIcon={({ isActive }) => (
+              <CaretRightOutlined rotate={isActive ? 90 : 0} />
+            )}
+            className="bg-white w-full"
+          >
+            {visibleAttendees.map((attendee, index) => (
+              <Panel
+                key={index}
+                header={
+                  <div className="flex items-center">
+                    <span className="font-semibold">{attendee.name}</span>
+                    <span className="mx-2">|</span>
+                    <span className="text-gray-600">
+                      {attendee.title} @{attendee.company} | {attendee.country}
                     </span>
+
+                    <span className="mx-2 text-[#666666]">|</span>
+                    <div className="flex items-center text-sm text-blue-500">
+                      {attendee.companySize && (
+                        <>
+                          <span className="text-gray-600">
+                            Company Size: {attendee.companySize} | Estimated ARR:{" "}
+                            {attendee.estimatedArr}
+                          </span>
+                        </>
+                      )}
+                      <span className="mx-2 text-[#666666]">|</span>
+
+                      {attendee.linkedin && (
+                        <a href={attendee.linkedin} className="mr-2 hover:underline">
+                          LinkedIn
+                        </a>
+                      )}
+                      <span className="mr-2 text-[#666666]">|</span>
+                      {attendee.website && (
+                        <>
+                          <a href={attendee.website} className="mr-2 hover:underline">
+                            Website
+                          </a>
+                        </>
+                      )}
+                    </div>
                   </div>
-                </div>
-              )}
-            </div>
-          ))}
+                }
+                className="mb-2 rounded-lg border border-gray-200 bg-white overflow-hidden"
+              >
+                {attendee.opportunity && (
+                  <p className="text-gray-700 mb-2 px-6">{attendee.opportunity}</p>
+                )}
+              </Panel>
+            ))}
+          </Collapse>
+          
         </div>
       </div>
     </div>

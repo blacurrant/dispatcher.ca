@@ -23,7 +23,7 @@ const events = [
     month: "Nov",
     day: "11",
     name: "Web Summit 2024",
-    duration: "2 Months",
+    duration: "11 - 14 November 2024",
     location: "Lisbon, Portugal",
     description:
       "Web Summit will bring together 70,000+ people, and the companies redefining the tech industry.",
@@ -111,7 +111,7 @@ export default function SponsoredEvents() {
                 ))}
               </div>
             </div>
-            <div className="relative w-4/6 h-full py-8">
+            <div className="relative w-4/6 h-full pb-8">
 
             <div className="relative h-full border p-2 border-primary bg-primary_light shadow-md  rounded-2xl flex ">
               <img

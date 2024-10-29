@@ -15,7 +15,7 @@ const events = [
     logo: web_summit,
     location: "Lisbon, Portugal",
     date: "11th Nov 24",
-    attendees: "25.5k",
+    attendees: "70.2k",
     propScore: 60,
     divider: true,
   },
@@ -24,7 +24,7 @@ const events = [
     logo: slush,
     location: "Helsinki, Finland",
     date: "20th Nov 24",
-    attendees: "33.5k",
+    attendees: "13.1k",
     propScore: 65,
   },
 ];
@@ -36,6 +36,8 @@ export default function EventCard() {
   return (
     <div className="w-1/3 h-full mx-auto overflow-hidden ">
       <div className="p-6 space-y-6">
+        <div className="bg-primary_light rounded-3xl p-4 space-y-4">
+
         <h2 className=" text-3xl font-light text-primary border-b border-primary">
           Popular Events
         </h2>
@@ -82,6 +84,7 @@ export default function EventCard() {
               {event?.divider && <Divider solid />}
             </>
           ))}
+        </div>
         </div>
 
 

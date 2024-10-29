@@ -57,12 +57,12 @@ export default function CompanyInfoForm({ setFormTab }) {
 
   return (
     <div className="w-[600px] mx-auto p-6 shadow-lg rounded-lg">
-      <Progress
-        percent={50}
-        showInfo={false}
-        strokeColor="#723D9E"
-        trailColor="#ECE6F0"
-      />
+      <div className="flex justify-between mb-4 gap-1">
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-primary rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+        <div className="w-1/4 h-2 bg-gray-200 rounded-full"></div>
+      </div>
 
       <div className="py-8">
         <Title className="!text-xl !font-bold mb-2">
@@ -145,7 +145,7 @@ export default function CompanyInfoForm({ setFormTab }) {
             <Button
               type="primary"
               onClick={() => setFormTab(2)}
-              className="w-full bg-primary_light  border-primary text-primary hover:!bg-secondary hover:!text-primary hover:!border-primary border rounded-2xl h-12 text-lg mt-4"
+              className="w-full bg-primary hover:!bg-hover hover:!text-primary hover:!border-primary border border-primary rounded-2xl h-12 text-lg mt-4"
             >
               <ArrowLeftOutlined />
               Back

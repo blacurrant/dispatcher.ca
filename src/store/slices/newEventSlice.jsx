@@ -4,6 +4,7 @@ const newEventSlice = createSlice({
   name: "eventSlice",
   initialState: {
     data: {},
+    isGoalPresent: false,
   },
   reducers: {
     setNewEventSlice: (state, action) => {
@@ -12,9 +13,14 @@ const newEventSlice = createSlice({
         ...action.payload,
       };
     },
+    setIsGoalPresent: (state, action) => {
+      console.log(action.payload, "action.payload");
+      
+      state.isGoalPresent = !state.isGoalPresent;
+    },
   },
 });
 
-export const { setNewEventSlice } = newEventSlice.actions;
+export const { setNewEventSlice, setIsGoalPresent } = newEventSlice.actions;
 
 export default newEventSlice.reducer;

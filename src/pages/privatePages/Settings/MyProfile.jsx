@@ -7,6 +7,15 @@ import { useSelector } from "react-redux";
 const { TabPane } = Tabs;
 const { Option } = Select;
 
+const purpleTheme = {
+  token: {
+    colorPrimary: "#723D9E",
+    colorLink: "#723D9E",
+    colorLinkHover: "#723D9E",
+    borderRadius: 16,
+  },
+};
+
 export default function UserProfile() {
   const [activeTab, setActiveTab] = useState("my-profile");
   const [formData, setFormData] = useState({
@@ -25,15 +34,6 @@ export default function UserProfile() {
   const [isEditing, setIsEditing] = useState(false);
 
   const userInfo = useSelector((state) => state?.currentUserSlice?.userInfo);
-
-  const purpleTheme = {
-    token: {
-      colorPrimary: "#723D9E",
-      colorLink: "#723D9E",
-      colorLinkHover: "#723D9E",
-      borderRadius: 16,
-    },
-  };
 
   const designations = [
     "CEO or Owner",
@@ -114,15 +114,14 @@ export default function UserProfile() {
       <ConfigProvider theme={purpleTheme}>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">My Profile</h1>
-
-          <Button
+          {/* <Button
             type="primary"
             icon={<EditOutlined />}
             onClick={toggleEdit}
             className="h-10 !rounded-2xl bg-primary text-white"
           >
             {isEditing ? "Cancel Edit" : "Edit"}
-          </Button>
+          </Button> */}
         </div>
 
         <Tabs activeKey={activeTab} onChange={setActiveTab} className="mb-6">

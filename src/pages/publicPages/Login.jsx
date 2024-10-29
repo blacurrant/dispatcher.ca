@@ -103,6 +103,7 @@ export default function LoginForm() {
               initialValues={{ remember: true }}
               onFinish={onFinish}
               layout="vertical"
+              disabled={true}
             >
               <Form.Item
                 name="email"

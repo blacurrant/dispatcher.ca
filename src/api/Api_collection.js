@@ -40,10 +40,33 @@ export const updateUserApi = async (user_id, userData) => {
 const CREATE_EVENT_ENDPOINT = "/events/";
 export const createEventApi = async (eventData) => {
   try {
-    const response = await getApi(CREATE_EVENT_ENDPOINT, eventData);
+    const response = await postApi(CREATE_EVENT_ENDPOINT, eventData);
     return response;
   } catch (error) {
     console.error("Error creating event:", error);
+    throw error;
+  }
+};
+
+
+const CREATE_CAMPAIGN_ENDPOINT = "/campaigns/";
+export const createCampaignApi = async (campaignData) => {
+  try {
+    const response = await postApi(CREATE_CAMPAIGN_ENDPOINT, campaignData);
+    return response;
+  } catch (error) {
+    console.error("Error creating Campaign:", error);
+    throw error;
+  }
+};
+
+const UPDATE_CAMPAIGN_ENDPOINT = "/campaigns/";
+export const updateCampaignApi = async (campaignData) => {
+  try {
+    const response = await putApi(UPDATE_CAMPAIGN_ENDPOINT, campaignData);
+    return response;
+  } catch (error) {
+    console.error("Error updating Campaign:", error);
     throw error;
   }
 };

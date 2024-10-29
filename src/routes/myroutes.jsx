@@ -34,9 +34,9 @@ const MyRoutes = () => {
       <Route
         path="/"
         element={
-          // <ProtectedRoutes>
+          <ProtectedRoutes>
             <Layout />
-          // </ProtectedRoutes>
+          </ProtectedRoutes>
         }
       >
         <Route path="/" element={<Home />} />
