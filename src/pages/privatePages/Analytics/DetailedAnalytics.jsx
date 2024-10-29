@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from 'react'
 import { ChevronDown, ChevronUp, ChevronLeft, ChevronRight, Linkedin } from 'lucide-react'
 import { CaretRightOutlined } from "@ant-design/icons";
