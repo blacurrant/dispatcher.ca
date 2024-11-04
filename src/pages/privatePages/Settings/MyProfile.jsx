@@ -114,14 +114,14 @@ export default function UserProfile() {
       <ConfigProvider theme={purpleTheme}>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">My Profile</h1>
-          {/* <Button
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={toggleEdit}
-            className="h-10 !rounded-2xl bg-primary text-white"
-          >
-            {isEditing ? "Cancel Edit" : "Edit"}
-          </Button> */}
+            {/* <Button
+              type="primary"
+              icon={<EditOutlined />}
+              onClick={toggleEdit}
+              className="h-10 !rounded-2xl bg-primary text-white"
+            >
+              {isEditing ? "Cancel Edit" : "Edit"}
+            </Button> */}
         </div>
 
         <Tabs activeKey={activeTab} onChange={setActiveTab} className="mb-6">
