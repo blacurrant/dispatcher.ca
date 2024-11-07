@@ -19,17 +19,19 @@ const purpleTheme = {
 export default function UserProfile() {
   const [activeTab, setActiveTab] = useState("my-profile");
   const [formData, setFormData] = useState({
-    first_name: "",
-    last_name: "",
-    designation: "",
-    email: "",
-    company_name: "",
-    company_size: "",
-    company_website: "",
-    company_location: "",
-    company_type: "",
-    platform_usage_type: "",
-    is_sponser: false,
+    user_id: 1,
+    email: "oriana.ascanio@foundever.com ",
+    first_name: "Oriana",
+    last_name: "Ascanio",
+    designation: "Head of Events & Marketing",
+    company_name: "Foundever",
+    company_size: "5000+",
+    company_location: "London",
+    company_website: "https://foundever.com/",
+    company_type: "CX Platform",
+    platform_usage_type: "Sponsor",
+    is_sponsor: true,
+    company_deck: null,
   });
   const [isEditing, setIsEditing] = useState(false);
 
@@ -114,7 +116,7 @@ export default function UserProfile() {
       <ConfigProvider theme={purpleTheme}>
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl font-bold">My Profile</h1>
-            {/* <Button
+          {/* <Button
               type="primary"
               icon={<EditOutlined />}
               onClick={toggleEdit}

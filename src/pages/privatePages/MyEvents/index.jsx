@@ -96,22 +96,22 @@ export default function MyEvents() {
             </p>
           </div>
           <div className="md:w-1/3 flex flex-col gap-3 md:mt-0 items-center justify-center">
-            {/* <Button
+            <Button
               type="default"
               className=" w-full flex items-center justify-center rounded-xl bg-primary text-white hover:!bg-hover hover:!text-primary hover:!border-primary border"
               icon={<RightOutlined />}
               onClick={() => {
-                if (goals) {
-                  dispatch(setIsGoalPresent());
-                  navigate(`/addEvent`);
-                } else {
+                // if (goals) {
+                //   dispatch(setIsGoalPresent());
+                //   navigate(`/addEvent`);
+                // } else {
                   navigate(`/events/${event.eventName}`, { state: event });
                   dispatch(setIsGoalPresent());
-                }
+                // }
               }}
             >
-              {goals ? "Set Goals" : "Edit Goals"}
-            </Button> */}
+              Edit Goals
+            </Button>
             {/* <Tooltip title="Set goals to see analytics"> */}
             <Button
               // disabled={true}
